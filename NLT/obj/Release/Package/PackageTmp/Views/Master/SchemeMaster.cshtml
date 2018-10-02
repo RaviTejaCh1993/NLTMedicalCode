@@ -1,0 +1,418 @@
+﻿
+@{
+    ViewBag.Title = "SchemeMaster";
+    Layout = "~/Views/Shared/_LayoutMasterClient.cshtml";
+}
+<script src="~/Scripts/jquery-1.11.3.min.js"></script>
+
+@model NLT.Models.SchemeModel
+
+@using (Html.BeginForm("SchemeMaster", "Master", FormMethod.Post))
+{
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header" style="color:#ff6a00;font-weight:bold;">@ViewBag.PageHedding</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <table class="table table-responsive">
+                <tr id="lblCityIdRow" style="display:none">
+                    <td style="text-align:center">
+                        Scheme Id
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(Model => Model.SchemeId, null, new { @readonly = "readonly" })
+
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td style="text-align:center">
+                        Scheme Name
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(Model => Model.SchemeName, null, new { Id = "CityName", @class = "form-control" })
+                        @*@Html.ValidationMessageFor(Model => Model.CityName, "Please Enter CityName");*@
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+
+                </tr>
+                <tr>
+                    <td style="text-align:center">
+                        Company
+                    </td>
+                    <td>
+                        @Html.DropDownListFor(m => m.CompanyId, Model.Companys, new { Id = "ddlCompany", @style = "width:100%;", @class = "ddlCompany form-control" })
+
+                    </td>
+                    <td style="text-align:center">
+                        Branch
+                    </td>
+                    <td>
+                        @Html.DropDownListFor(m => m.BranchId, Model.Branches, new { Id = "ddlBranch", @style = "width:100%;", @class = "ddlBranch form-control" })
+
+                    </td>
+                    <td style="text-align:center">
+                        Department
+                    </td>
+                    <td>
+                        @Html.DropDownListFor(m => m.DepartmentId, Model.Departments, new { Id = "ddlDepartment", @style = "width:100%;", @class = "ddlDepartment form-control" })
+                    </td>
+
+                </tr>
+
+                <tr>
+                    <td style="text-align:center"></td>
+                    <td>
+                        <input type="submit" value="Go" name="btnpost" class="btn-success form-control" onclick="return validateGoButton()" />
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+
+            <div style="@(Model.ShowTestProceEdit ? "display:block" : "display:none")">
+                
+                <table class="table table-responsive col-sm-12">
+                   
+                    <tr style="display:none">
+                        <td>Test Id</td>
+                        <td><input type="text" /></td>
+                    </tr>
+                    <tr>
+                       
+                        <td>Test Name</td>
+                        <td>@*<input type="text" id="txtTestName_" />*@
+                            @Html.TextBoxFor(Model => Model.TestId, null, new { Id = "txtTestName_", @class = "form-control" })
+                        </td>
+                        <td>MRP</td>
+                        <td>@*<input type="text"  id="txtMRP_"/>*@
+                        @Html.TextBoxFor(Model => Model.MRP, null, new { Id = "txtMRP_", @class = "form-control" })
+                        </td>
+                        
+                        <td>Discount Price</td>
+                        <td>@*<input type="text" id="txtDiscountPrice_" />*@
+                        @Html.TextBoxFor(Model => Model.CustomerDiscountPrice, null, new { Id = "txtDiscountPrice_", @class = "form-control" })
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td><td></td>
+                       
+                        <td>Agrigate Rate</td>
+                        <td>@*<input type="text" id="txtAgrigateRate_" />*@
+                            @Html.TextBoxFor(Model => Model.AgrigateRate, null, new { Id = "txtAgrigateRate_", @class = "form-control" })
+                        </td>
+                        <td>Total</td>
+                        <td>@*<input type="text" id="txtTotal_" />*@
+                        @Html.TextBoxFor(Model => Model.Total, null, new { Id = "txtTotal_", @class = "form-control" })
+                        </td>
+                        <td><input id="btnSaveTestPrice" type="submit" value="Submit" style="background-color:#2d9b39;color:white;" /></td>
+                    </tr>
+
+                </table>
+            </div>
+
+            <table class="table table-responsive">
+                <tr>
+                    <td height="300px" style="background-color:#faf2e3">
+
+                        <table id="tblTestPrice" class="table table-responsive tblTestPrice">
+                            <tr class="class1">
+                                <td>Test Id</td>
+                                <td>Test Name</td>
+                                <td>MRP</td>
+                                <td>Agrigate Rate</td>
+                                <td>Discount Price</td>
+                                <td>Total</td>
+                                <td></td>
+                            </tr>
+                            @if (Model.TestPrices != null)
+                            {
+                                foreach (var M in Model.TestPrices)
+                                {
+                                    <tr data-id=@M.TestId>
+                                        <td><input type="text" id="txtTestId" value=@M.TestId /> </td>
+                                        <td><input type="text" id="txtTestName" value=@M.TestName /> </td>
+                                        <td><input type="text" id="txtMRP" value=@M.MRP /> </td>
+                                        <td><input type="text" id="txtAgrigateRate" value=@M.AgrigateRate /> </td>
+                                        <td><input type="text" id="txtDiscountPrice" value=@M.CustomerDiscountPrice /> </td>
+                                        <td><input type="text" id="txtTotal" value=@M.Total /> </td>
+
+                                        @*<td>  @M.TestId </td>
+                                        <td>@M.TestName</td>
+                                        <td>@M.MRP </td>
+                                        <td>@M.AgrigateRate </td>
+                                        <td>@M.CustomerDiscountPrice </td>
+                                        <td>@M.Total</td>*@
+                                        <td><a class="btnget" id="btnget" data-index=@M.TestId name="tab" href="#">Edit</a></td>
+                                    </tr>
+
+                                }
+                            }
+
+                        </table>
+
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+
+    <style>
+        .class1 {
+            background-color: #e4f8fa;
+        }
+    </style>
+
+
+    <script type="text/javascript">
+
+        function validateGoButton()
+        {
+            var ErrorString = "";
+
+            if($(".ddlCompany :selected").val() =="0")
+            {
+                ErrorString = ErrorString + " Please select Company \n";
+            }
+
+            if (ErrorString != "")
+            {
+                alert(ErrorString);
+                return false;
+            }
+            else {
+
+                return true;
+            }
+           
+        }
+
+    </script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            //$(".btnget").click(function () {
+
+            //    var res = $(this).getAttribute("data-index"); // $(".btnget").name;
+
+            //    alert("dddddddddddddddd--" + res);
+            //});
+
+            $("a[name=tab]").on("click", function () {
+                var a = $(this)[0].getAttribute("data-index");
+
+                //var a = $(this).getAttribute("data-index");
+              //  alert("dddddddddddddddd-----" + a);
+
+                var txtTestId = "";
+
+                //$("#tblTestPrice").find('tr data-id=').each(function (i) {
+
+
+                //});
+
+                var TestId = "";
+                var TestName = "";
+                var MRP = "";
+                var AgrigateRate = "";
+                var DiscountPrice = "";
+                var Total = "";
+
+
+                $(".tblTestPrice tr").each(function (i) {
+
+                    var $fieldset = $(this);
+
+                    if ($fieldset[0].attributes[0].value == a)
+                    {
+                        TestId = TestId + $('input:text:eq(0)', $fieldset).val();
+                        TestName = TestName + $('input:text:eq(1)', $fieldset).val();
+                        MRP = MRP + $('input:text:eq(2)', $fieldset).val();
+                       
+                        AgrigateRate = AgrigateRate + $('input:text:eq(3)', $fieldset).val();
+                        DiscountPrice = DiscountPrice + $('input:text:eq(4)', $fieldset).val();
+                        Total = Total + $('input:text:eq(5)', $fieldset).val();
+                        // Total = Total + $('input:text:eq(2)', $fieldset).val();
+
+                        $("#txtTestName_").val(TestName);
+                        $("#txtMRP_").val(MRP);
+                        $("#txtAgrigateRate_").val(AgrigateRate);
+                        $("#txtDiscountPrice_").val(DiscountPrice);
+                        $("#txtTotal_").val(Total);
+                        
+                       /// alert("bbbbbbbbbb-----" + a);
+                    }
+
+                   
+
+                  //  var $fieldset = $(this);
+                    //FirstName = FirstName + ',' + $('input:text:eq(0)', $fieldset).val();
+                    //LastName = LastName + ',' + $('input:text:eq(1)', $fieldset).val();
+                    //Email = Email + ',' + $('input:text:eq(2)', $fieldset).val();
+                    //PhoneNumber = PhoneNumber + ',' + $('input:text:eq(3)', $fieldset).val();
+
+                 //    txtTestId = $(this).find("input[id^='txtTestId']").val()
+
+                });
+
+
+                //alert("TestId is:- " + txtTestId);
+
+
+            });
+
+
+
+        });
+
+
+    </script>
+
+
+    <script type="text/javascript">
+
+        $(".ddlBranch").change(function () {
+
+            var branchId = $("#ddlBranch :selected").val();
+
+            if (branchId != "" || branchId != null) {
+
+                if (branchId == "0") {
+                    $(".ddlDepartment").empty();
+                    var data1 = '<option value=0>-Select-</option>'
+                    $(".ddlDepartment").append(data1);
+
+                    return;
+                }
+                else {
+
+                    $.ajax({
+                        type: "GET",
+                        url: "/Master/GetDipartmentsByBranchId",
+                        data: { BranchId: parseInt(branchId) },
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: successFunc,
+                        error: errorFunc
+                    });
+
+                    function successFunc(res, status) {
+
+                        if (res.StatusCode == 200) {
+                            // alert("Sucess Data...............");
+
+                            $(".ddlDepartment").empty();
+                            var data1 = '<option value=0>-Select-</option>'
+                            $(".ddlDepartment").append(data1);
+
+                            for (i = 0; i < res.Result.length; i++) {
+                                var data = '<option value=' + res.Result[i].DepartmentId + '>' + res.Result[i].DepartmentName + '</option>'
+                                $(".ddlDepartment").append(data);
+                            }
+
+
+                        }
+                        else {
+
+                        }
+
+
+                    }
+
+                    function errorFunc() {
+                        alert('error');
+                    }
+                }
+            }
+
+        });
+
+
+    </script>
+
+
+    <script type="text/javascript">
+
+        $(".ddlCompany").change(function () {
+
+            var companyId = $(".ddlCompany :selected").val();
+
+            if (companyId != "" || companyId != null) {
+
+                if (companyId == "0") {
+                    $(".ddlBranch").empty();
+                    var data1 = '<option value=0>-Select-</option>'
+                    $(".ddlBranch").append(data1);
+
+                    $(".ddlDepartment").empty();
+                    var data1 = '<option value=0>-Select-</option>'
+                    $(".ddlDepartment").append(data1);
+
+
+                    return;
+                }
+                else {
+
+                    $.ajax({
+                        type: "GET",
+                        url: "/Master/GetBranchesByCompanyId",
+                        data: { CompanyId: parseInt(companyId) },
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: successFunc,
+                        error: errorFunc
+                    });
+
+                    function successFunc(res, status) {
+
+                        if (res.StatusCode == 200) {
+                            // alert("Sucess Data...............");
+
+                            $(".ddlBranch").empty();
+                            var data1 = '<option value=0>-Select-</option>'
+                            $(".ddlBranch").append(data1);
+
+                            for (i = 0; i < res.Result.length; i++) {
+                                var data = '<option value=' + res.Result[i].BranchId + '>' + res.Result[i].BranchName + '</option>'
+                                $(".ddlBranch").append(data);
+                            }
+
+
+                        }
+                        else {
+
+                        }
+
+
+                    }
+
+                    function errorFunc() {
+                        alert('error');
+                    }
+
+                }
+
+            }
+
+        });
+
+
+    </script>
+}

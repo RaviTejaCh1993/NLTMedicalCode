@@ -1,0 +1,276 @@
+﻿
+
+@model NLT.Models.OrderModel
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutMasterClient.cshtml";
+}
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<style type="text/css">
+    .div1-class1 {
+        background-color: white;
+        padding: 20px;
+    }
+
+    .div2-class1 {
+        background-color: #fff7cb;
+        padding: 20px;
+        height: 70px;
+    }
+
+    .body {
+        font-family: "AvenirNext", "Avenir Next", "Nunito","Open Sans", "OpenSans", "Arial";
+        font-weight: 400;
+        font-stretch: normal;
+        font-size: 14px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        background-color: #E1E1DD;
+    }
+</style>
+
+<style type="text/css">
+    .table > tbody > tr > th, .table > tbody > tr > td {
+        border-top: none;
+    }
+
+    .MandatorySymbolStyle {
+        color: red;
+    }
+</style>
+
+
+<h2> Order</h2>
+<hr />
+
+@using (Html.BeginForm("Index", "Order", FormMethod.Post))
+{
+    <div>
+        <div class="container body" style="padding:5px;width:70%;float:left;">
+            <div class="div1-class1">
+
+                <img src="data:image/webp;base64,UklGRsIAAABXRUJQVlA4TLUAAAAvF8AFEP8wruM6rorbRlJjC7dM3wvAGQJB4VBQCBIFwYNC8OBQMByKhYPBWCQOH4WAgWEkW2kexN1dXv918gM/HUT0fwJQtm2bQbEmyTdWKB1WCijalRw1gJw80tDIian45gDwKLBzLo3M2RRe64wKF9xKYRFShUaIFBIBd9BjpDPohLwETR9dUPFh18t/wP92vnrJTtdgPGaSpdCTbDwOkpOwk1w8avJNhYJk7oG8SyFnXQoAAA==" width="3%" data-pagespeed-url-hash="3726273458" onload="pagespeed.CriticalImages.checkImageForCriticality(this);">
+                <u>Cart</u>   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @Model.TestName
+                <br />
+
+                <br />
+               
+                <a class="btnNearestPrice btn btn-success" href="/User/SearchTest" style="color:white;">Add another test</a>
+                @*<input type="button" id="btnAddAnotherTest" class="btn btn-success" value="Add another test" />*@
+                <input type="button" id="btnRemoveTest" class="btn btn-warning" value="Remove test" />
+              
+                <a href="" id="btnClearCart">Clear Cart</a> &nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                @*<a href="/CheckOut/CheckOutProcess/?TestId=100&LocationId=@Model.LocationId&CmpId=1">CheckOut</a> &nbsp;*@
+                @*<a href="#"><span class="glyphicon-shopping-cart" style="color:green"></span> Cart</a><span class="badge">@ViewBag.cart</span>*@
+                <a href="/CheckOut/CheckOutProcess?L=@Model.LocationId&T=@Model.TestId">CheckOut</a> &nbsp;
+                Cart Count :
+                @if (@Session["count"] != null)
+                {
+                    @Session["count"].ToString()
+                }
+               
+
+            </div>
+            <div class="div2-class1">
+                <div class="col-md-6">
+                    @Model.DisplayCentersAmount
+                </div>
+                <div class="col-md-6">
+                    <table class="tbl table-responsive" style="float:right">
+                        <tr>
+                            <td>
+                                @*<input type="button" class="btnNearestPrice  btn btn-success" value="Nearest Price">*@
+                                @*<button class="btn btn-success">
+
+                                    </button>*@
+                                <a class="btnNearestPrice btn btn-success" href="/Order/Index?LocationId=@Model.LocationId&TestId=@Model.TestId&Type=N" style="color:white;">Nearest Price</a>
+                            </td>
+                            <td>
+                                @*<input type="button" class="btnLowestPrice btn btn-info" value="Lowest Price" />*@
+                                <button class="btn btn-info">
+                                    <a class="btnLowestPrice" href="/Order/Index?LocationId=@Model.LocationId&TestId=@Model.TestId&Type=L" style="color:white;">Lowest Price</a>
+                                </button>
+                            </td>
+                            <td>
+                                @*<input type="button" class="btnHeighPrice btn btn-warning" value="Heigh Price" />*@
+                                <button class="btn btn-warning">
+                                    <a class="btnLowestPrice" href="/Order/Index?LocationId=@Model.LocationId&TestId=@Model.TestId&Type=H" style="color:white;">Heigh Price</a>
+                                </button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="div-class2">
+                <table class="table" style="background-color:#fef6cc;padding:10px;" width="100%">
+                    @foreach (var Test in Model.TestsList)
+                {
+
+                        <tr>
+                            <td width="100%" style="background-color:white;">
+                                <table width="100%">
+                                    <tr>
+                                        <td width="50%" align="left" style="background-color:aliceblue;padding-bottom:0px;">
+                                            <table class="table table-responsive" border="0" width="100%" style="padding-bottom:0px;">
+                                                <tr>
+                                                    <td width="30%">
+                                                        <img src=@Test.TestLabImagePath width="130" height="130" />
+                                                    </td>
+                                                    <td align="left" width="70%">
+                                                        <table align="left" width="100%">
+                                                            <tr>
+                                                                <td style="border-top:0px;">
+                                                                    <a href="" style="color:#2457e4">@Test.CompanyName</a>  <br />@Test.PlaceName
+                                                                </td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                <td style="border-top:0px">
+                                                                    <table>
+                                                                        <tr>
+                                                                            <td style="border-top:0px">
+                                                                                <img src="~/images/TestServiceImages/wheelchair.png" width="20px" height="20px" placeholder="sssssssssss" />
+                                                                                <img src="~/images/TestServiceImages/car.png" width="20px" height="20px" placeholder="sssssssssss" />
+                                                                                <img src="~/images/TestServiceImages/Notes.png" width="20px" height="20px" placeholder="sssssssssss" />
+                                                                                <img src="~/images/TestServiceImages/Nabl.png" width="20px" height="20px" placeholder="sssssssssss" />
+                                                                                <img src="~/images/TestServiceImages/creditcard.png" width="20px" height="20px" placeholder="sssssssssss" />
+
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr><td><a href="">Timings</a>&nbsp;<a href="">Photos</a>&nbsp;<a href="">Reviews</a></td></tr>
+                                                                    </table>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td style="text-align:right;" width="50%">
+                                            <table class="table table-responsive" style="background-color:antiquewhite;">
+                                                <tr>
+                                                    <td>
+                                                        <label style="font-size:small"><strike> ₹ @Test.MRP </strike> </label>  <br /> <label style="font-size:large">    ₹ @Test.CustomerPrice  </label>
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+
+                                                </tr>
+
+                                                <tr>
+                                                    <td>
+                                                        @*<a href="/CheckOut/Index/?TestId=@Test.TestId&LocationId=@Model.LocationId&CmpId=@Test.CompanyId" class="btn btn-success">Add To Cart</a>*@
+                                                        @*<a id="btn_add" href="@Url.Action("Add", "AddToCart",@Test)" class="btn btn-info btn-lg" style="margin-left:5px">
+                                                              <span class="glyphicon glyphicon-shopping-cart"></span> Add To Cart New
+                                                            </a>*@
+
+                                                        @*<a href="/CheckOut/Index/?TestId=@Test.TestId&LocationId=@Model.LocationId&CmpId=@Test.CompanyId" class="btn btn-info btn-lg" style="margin-left:5px">
+                                                            <span class="glyphicon glyphicon-shopping-cart"/>
+                                                                AddToCart
+                                                        </a>*@
+
+                                                        <a href="/Order/OrdPro/?TestId=@Test.TestId&LocationId=@Model.LocationId&CmpId=@Test.CompanyId&BranchId=@Test.BranchId" class="btn btn-info btn-lg" style="margin-left:5px">
+                                                            <span class="glyphicon glyphicon-shopping-cart" />
+                                                            AddToCart
+                                                        </a>
+
+                                                    </td>
+
+                                                </tr>
+                                            </table>
+
+                                            @*<input type="submit" value="Checkout" class="btn btn-primary" id=@Test.TestId />*@
+
+                                        </td>
+
+                                        @*<td width="20%" style="background-color:#f9fbfb;"></td>*@
+                                    </tr>
+                                </table>
+
+
+
+                            </td>
+                        </tr>
+
+                        @*<tr style="background-color:#f9fbfb;">
+
+                            </tr>*@
+
+                    }
+
+
+
+                </table>
+
+            </div>
+        </div>
+
+        <div style="float:left;">
+
+
+        </div>
+    </div>
+}
+
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        
+
+        $("#btnAddAnotherTest").click(function () {
+            alert("sssssssssssssss");
+
+        });
+
+        $("#btnClearCart").click(function () {
+           // alert("btnClearCart");
+
+            $.ajax({
+                type: 'Post',
+                dataType: "json",
+                url: "/Order/ClearCart",
+                contentType: 'application/json',
+                //data: JSON.stringify(cpModel),
+                success: function (response) {
+                    // alert("success!")
+
+                    if (response.StatusCode == 200) {
+                        alert("Cart Cleared Sucessfully!")
+
+                       // var Res = response.Result;
+                       // window.location.href = "/Payment/Confirm/?Id=" + Res; //data.redirecturl;
+                    }
+                    else if (response.StatusCode == 400) {
+                        alert(response.ErrorMessage)
+                    }
+                    else if (response.StatusCode == 500) {
+                        alert(response.ErrorMessage)
+                    }
+
+                },
+                error: function (response) {
+                    alert("error") // I'm always get this.
+                }
+
+            })
+
+
+        });
+
+    });
+
+
+</script>

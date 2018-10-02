@@ -1,0 +1,594 @@
+﻿@*@model NLT.Models.PaymentModel*@
+
+@model NLT.Models.CPModel
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutMasterClient.cshtml";
+}
+
+<style type="text/css">
+    .div1-class1 {
+        background-color: white;
+        padding: 10px;
+    }
+
+    .div2-class1 {
+        background-color: #fff7cb;
+        padding: 20px;
+    }
+
+    .body {
+        font-family: "AvenirNext", "Avenir Next", "Nunito","Open Sans", "OpenSans", "Arial";
+        font-weight: 400;
+        font-stretch: normal;
+        font-size: 14px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        background-color: #E1E1DD;
+    }
+
+    .headding {
+        background-color: #fcc196;
+        width: 100%;
+    }
+
+    .footlable {
+        background-color: white;
+    }
+</style>
+
+<script type="text/javascript">
+    var specialKeys = new Array();
+    specialKeys.push(8); //Backspace
+    function IsNumeric(e) {
+        var keyCode = e.which ? e.which : e.keyCode
+        var ret = ((keyCode >= 48 && keyCode <= 57) || specialKeys.indexOf(keyCode) != -1);
+        //document.getElementById("error").style.display = ret ? "none" : "inline";
+        return ret;
+    }
+</script>
+
+
+<script src="~/Scripts/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('ul.tabs li').click(function () {
+            var tab_id = $(this).attr('data-tab');
+
+            $('ul.tabs li').removeClass('current');
+            $('.tab-content').removeClass('current');
+
+            $(this).addClass('current');
+            $("#" + tab_id).addClass('current');
+        })
+
+
+        $('.ConfirmBooking').click(function () {
+
+            var Errors = "";
+            //var id = $(element).attr("id");
+            //// Can be simply:
+            //var id = element.id;
+
+            var txtFinalAmt = $("#txtFinalAmt").val()
+
+            if (txtFinalAmt == "" || txtFinalAmt == "0")
+            {
+                Errors = Errors + " Order Total Should be greater then zero \n";
+            }
+
+            if (Errors != "") {
+                alert(Errors);
+            }
+            else {
+
+                var cpModel = {}
+                cpModel.OrderId = $("#lblOrderId").text();
+
+                $.ajax({
+                    type: 'Post',
+                    dataType: "json",
+                    url: "/Payment/ConfirmPayment",
+                    contentType: 'application/json',
+                    data: JSON.stringify(cpModel),
+                    success: function (response) {
+                        // alert("success!")
+
+                        if (response.StatusCode == 200) {
+                            var Res = response.Result;
+
+                            window.location.href = "/Payment/Confirm/?Id=" + Res; //data.redirecturl;
+                        }
+                        else if (response.StatusCode == 400) {
+                            alert(response.ErrorMessage)
+                        }
+                        else if (response.StatusCode == 500) {
+                            alert(response.ErrorMessage)
+                        }
+
+                    },
+                    error: function (response) {
+                        alert("error") // I'm always get this.
+                    }
+
+                })
+
+            }
+
+        });
+
+
+        $("#btnDEOrderItem").click(function () {
+
+            alert("ffffffffffffffff");
+
+            var Errors = "";
+
+            var txtFinalAmt = $("#txtFinalAmt").val()
+
+            if (txtFinalAmt == "" || txtFinalAmt == "0") {
+                Errors = Errors + " Order Total Should be greater then zero \n";
+            }
+
+            if (Errors != "") {
+                alert(Errors);
+            }
+            else {
+
+                var cpModel = {}
+                cpModel.OrderId = $("#lblOrderId").text();
+                cpModel.SequenceId = $("#btnDEOrderItem").text();
+
+                $.ajax({
+                    type: 'Post',
+                    dataType: "json",
+                    url: "/Payment/DEorderItem",
+                    contentType: 'application/json',
+                    data: JSON.stringify(cpModel),
+                    success: function (response) {
+                        // alert("success!")
+
+                        if (response.StatusCode == 200) {
+                            var OrderId = response.Result;
+
+                            window.location.href = "/Payment/Index/?Id=" + OrderId; //data.redirecturl;
+                        }
+                        else if (response.StatusCode == 400) {
+                            alert(response.ErrorMessage)
+                        }
+                        else if (response.StatusCode == 500) {
+                            alert(response.ErrorMessage)
+                        }
+
+                    },
+                    error: function (response) {
+                        alert("error") // I'm always get this.
+                    }
+
+                })
+
+            }
+
+        });
+
+
+
+
+
+    });
+</script>
+
+<style>
+    body {
+        /*margin-top: 100px;*/
+        font-family: 'Trebuchet MS', serif;
+        line-height: 1.6;
+    }
+
+    .title {
+        padding: 10px;
+    }
+    /*.container {
+        width: 1100px;
+        margin: 0 auto;
+    }*/
+
+
+
+    ul.tabs {
+        margin: 0px;
+        padding: 0px;
+        list-style: none;
+    }
+
+        ul.tabs li {
+            background: none;
+            color: #222;
+            display: inline-block;
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+
+            ul.tabs li.current {
+                background: #ededed;
+                color: #222;
+            }
+
+    .tab-content {
+        display: none;
+        background: #ededed;
+        padding: 15px;
+    }
+
+        .tab-content.current {
+            display: inherit;
+        }
+
+    .class-Headding1 {
+        background-color: #49b2fe;
+        color: white;
+        font-weight: bold;
+    }
+
+    .text-bold{
+        font-weight:bold;
+      
+    }
+    .text-color-blue{   
+       color:blue;
+    }
+
+    .font-Color-lables{
+        font-weight:bold;
+       color:black;
+    }
+    .back-color-Totals{
+      background-color:#fffadf
+    }
+
+
+    /*---- https://cssjockey.com/an-easy-way-to-create-tabbed-content-with-jquery-css/*/
+    /*https://codepen.io/cssjockey/pen/jGzuK*/
+</style>
+
+@*<div class="div1-class1">
+
+        <img src="data:image/webp;base64,UklGRsIAAABXRUJQVlA4TLUAAAAvF8AFEP8wruM6rorbRlJjC7dM3wvAGQJB4VBQCBIFwYNC8OBQMByKhYPBWCQOH4WAgWEkW2kexN1dXv918gM/HUT0fwJQtm2bQbEmyTdWKB1WCijalRw1gJw80tDIian45gDwKLBzLo3M2RRe64wKF9xKYRFShUaIFBIBd9BjpDPohLwETR9dUPFh18t/wP92vnrJTtdgPGaSpdCTbDwOkpOwk1w8avJNhYJk7oG8SyFnXQoAAA==" width="3%" data-pagespeed-url-hash="3726273458" onload="pagespeed.CriticalImages.checkImageForCriticality(this);">
+        Checkout
+
+    </div>
+    <hr />*@
+
+<hr />
+
+@using (Html.BeginForm("Index", "Payment", FormMethod.Post))
+{
+
+    <div class="container-fluid">
+
+        <div class="col-sm-12">
+
+
+            <div class="headding">
+                <div class="col-sm-12"><div class="title">Review</div><div style="display:none;"><label id="lblOrderId">@Model.OrderId</label></div></div>
+            </div>
+
+            <div class="footlable" style="padding:10px">
+
+                <table width="100%">
+                    <tr>
+                        <td width="30%" style="vertical-align:top">
+                            <table width="100%">
+                                <tr>
+                                    <td width="50%">
+                                        Name
+                                    </td>
+                                    <td width="50%">
+                                        @Model.TestPersonName
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="50%">
+                                        Appointment
+                                    </td>
+                                    <td width="50%">
+                                        @Model.Appointmentdate
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td width="70%">
+                            <table width="100%" class="table table-responsive">
+                                <tr class="class-Headding1" style="overflow:scroll;">
+                                    <td>
+                                        
+                                    </td>
+                                    <td>
+                                        Test Center
+                                    </td>
+                                    <td>
+                                        Test
+                                    </td>
+                                    <td>
+                                        Appointment Time
+                                    </td>
+                                    <td>
+                                        MRP
+                                    </td>
+                                    <td>
+                                        
+                                    </td>
+                                </tr>
+                                @{ decimal SubTotal = 0;
+                                    decimal OrderTotal = 0; int sequenceNumber = 0; }
+                                @foreach (var a in Model.Tests)
+                                {
+                                    sequenceNumber = (Convert.ToInt32(sequenceNumber) + 1);
+
+                                    <tr style="overflow:scroll;height:20px;">
+                                        <td>
+                                            @sequenceNumber
+                                        </td>
+                                        <td>
+                                            @a.CompanyName
+                                        </td>
+                                        <td>
+                                            @a.TestName
+                                        </td>
+                                        <td>
+                                            @a.TestName
+                                        </td>
+                                        <td>
+                                            @a.MRP
+                                        </td>
+                                        <td>
+                                            @*<a href="" id="btnDEOrderItem" name=@a.SequenceId>Delete</a>*@
+                                            @*<a href="/Payment/DItem/Oid=@Model.OrderId&Did="@a.SequenceId>Delete</a>*@
+                                        </td>
+                                    </tr>
+                                    SubTotal = (Convert.ToDecimal(SubTotal) + Convert.ToDecimal(a.MRP));
+
+                                    OrderTotal = (Convert.ToDecimal(SubTotal));
+
+                                }
+
+                                <tr class="back-color-Totals">
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+                                        
+                                    </td>
+                                    <td class="text-bold">Sub Total :</td>
+                                    <td class="text-bold text-color-blue">
+                                        @SubTotal
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="text-bold">
+                                        Order Total :
+                                    </td>
+                                   
+                                    <td class="text-bold text-color-blue">
+                                        @OrderTotal
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+
+                <br />
+                <table class="table table-responsive" border="0" style="background-color:white;">
+                    <tr>
+                        <td colspan="2">
+                            <div class="">
+                                <ul class="tabs">
+                                    <li class="tab-link current" data-tab="tab-1">Cash At Center</li>
+                                    <li class="tab-link" data-tab="tab-4">PayTM</li>
+                                    <li class="tab-link" data-tab="tab-2">Citrus Pay</li>
+                                    <li class="tab-link" data-tab="tab-3" selected="true">Pay You Money</li>
+
+
+                                </ul>
+                                <div id="tab-1" class="tab-content current">
+                                    <table width="100%" class="table table-responsive" border="0">
+                                        <tr>
+                                            <td>
+                                                <label>You can pay directly at the center. You will receive a confirmation after your booking via SMS. Please show it at the center to avail your discount.</label>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                    <table width="100%" class="table table-responsive" border="0">
+                                        <tr>
+                                            <td>
+                                                Final Price: ₹  <input type="text" id="txtFinalAmt" class="txtFinalAmt" value=@OrderTotal readonly="readonly" />     @*<label id="lblOrderTotal" class="lblOrderTotal" name=@OrderTotal>@OrderTotal</label>*@
+                                                         
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input type="button" value="Confirm Booking" id="btnAddImg" class="ConfirmBooking btn btn-success" onclick="return validationForServiceDetails()" />
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                    </table>
+
+
+                                </div>
+                                <div id="tab-4" class="tab-content">
+                                    <table class="table table-responsive" width="100%">
+                                        <tr>
+                                            <td width="50%">
+                                                <table class="table table-responsive">
+                                                    <tr id="lblCityIdRow">
+                                                        <td style="text-align:left;">
+                                                            <label>Final Price:  </label>
+                                                        </td>
+                                                        <td style="text-align:left">
+                                                            @*₹ @Model.FinalPrice  @Html.TextBoxFor(Model => Model.Address, "", new { Id = "Address", @style = "width:50%;", @class = "form-control" })*@
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="text-align:left">
+
+                                                            <label>Email (for payment receipt):</label>
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" class="form-control" />
+                                                            @*@Html.TextBoxFor(Model => Model.Phone1, "", new { Id = "Phone1", @style = "width:50%;", @class = "form-control" })*@
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="text-align:left"></td>
+                                                        <td>
+                                                            <input id="btnPaytm" type="button" value="Next" style="background-color:green;color:white;float:right;margin:0px 20px;" class="btn btn-success" />
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                </div>
+                                <div id="tab-2" class="tab-content">
+                                    <table class="table table-responsive">
+                                        <tr id="lblCityIdRow">
+                                            <td style="text-align:left;">
+                                                <label>From</label>
+                                            </td>
+                                            <td style="text-align:left">
+                                                @*@Html.TextBoxFor(Model => Model.WorkingHourseFrom, "", new { Id = "WorkingHourseFrom", @style = "width:50%;", @class = "form-control" })*@
+                                            </td>
+                                        </tr>
+                                        <tr id="lblCityIdRow">
+                                            <td style="text-align:left;">
+                                                <label>To</label>
+                                            </td>
+                                            <td style="text-align:left">
+                                                @*@Html.TextBoxFor(Model => Model.WorkingHourseTo, "", new { Id = "WorkingHourseTo", @style = "width:50%;", @class = "form-control" })*@
+                                            </td>
+                                        </tr>
+                                        <tr id="lblCityIdRow">
+                                            <td style="text-align:left;"></td>
+                                            <td style="text-align:left">
+                                                @*@Html.CheckBox("SundayisHoliday", Model.SundayisHoliday, new { Id = "SundayisHoliday" })*@
+
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div id="tab-3" class="tab-content" selected="true">
+                                    @*<table class="table table-responsive">
+                                            <tr id="lblCityIdRow">
+                                                <td style="text-align:left;">
+                                                    <label>Is NABL</label>
+                                                </td>
+                                                <td style="text-align:left">
+
+                                                </td>
+                                            </tr>
+                                            <tr id="lblCityIdRow">
+                                                <td style="text-align:left;">
+                                                    <label>Is Wheel Chair</label>
+                                                </td>
+                                                <td style="text-align:left">
+
+                                                </td>
+                                            </tr>
+                                            <tr id="lblCityIdRow">
+                                                <td style="text-align:left;">
+                                                    <label>Is Home Collection</label>
+                                                </td>
+                                                <td style="text-align:left">
+
+                                                </td>
+                                            </tr>
+                                            <tr id="lblCityIdRow">
+                                                <td style="text-align:left;">
+                                                    <label>Is Parking Available</label>
+                                                </td>
+                                                <td style="text-align:left">
+
+                                                </td>
+                                            </tr>
+                                            <tr id="lblCityIdRow">
+                                                <td style="text-align:left;">
+                                                    <label>Is CreditCard Accet</label>
+                                                </td>
+                                                <td style="text-align:left">
+
+                                                </td>
+                                            </tr>
+
+                                        </table>*@
+                                </div>
+
+                                <div id="tab-5" class="tab-content">
+                                    @*<table class="table table-responsive">
+                                            <tr id="lblCityIdRow">
+                                                <td style="text-align:left;">
+                                                    <label>First Image</label>
+                                                </td>
+                                                <td style="text-align:left">
+
+                                                </td>
+                                            </tr>
+                                            <tr id="lblCityIdRow">
+                                                <td style="text-align:left;">
+                                                    <label>2'nd Image</label>
+                                                </td>
+                                                <td style="text-align:left">
+
+                                                </td>
+                                            </tr>
+                                            <tr id="lblCityIdRow">
+                                                <td style="text-align:left;">
+                                                    <label>3'rd Image</label>
+                                                </td>
+                                                <td style="text-align:left">
+
+                                                </td>
+                                            </tr>
+
+
+                                        </table>*@
+                                </div>
+
+                            </div><!-- container -->
+
+                        </td>
+                    </tr>
+
+                </table>
+
+            </div>
+            @*<div class="row">
+                    <div class="col-sm-8" style="height:20px;"></div>
+                </div>*@
+
+
+
+
+        </div>
+        <div class="clearfix"></div>
+
+    </div>
+    @*<table width="100%">
+            <tr>
+                <td width="100%" align="right">
+                    <input type="submit" value="Next" style="background-color:green;color:white;float:right;margin:0px 20px;" class="btn btn-success" />
+                </td>
+            </tr>
+        </table>*@
+                                    }

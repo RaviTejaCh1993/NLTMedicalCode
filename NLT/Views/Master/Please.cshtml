@@ -1,0 +1,289 @@
+﻿
+@model NLT.Models.PlaceModel
+
+@{
+    ViewBag.Title = "Please";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Scripts/jquery-1.11.3.min.js"></script>
+
+@using (Html.BeginForm("Please", "Master", FormMethod.Post))
+{
+
+
+    <div class="container">
+        <br />
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <b> @ViewBag.PageHedding </b>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <table class="table table-responsive">
+                                    <tr id="lblCityIdRow" style="display:none">
+                                        <td style="text-align:center">
+                                            Please Id
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(Model => Model.PlaceId, "", new { @readonly = "readonly", @class = "form-control" })
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:center">
+                                            Please Name
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(Model => Model.PlaceName, null, new { @class = "form-control" })
+                                            @*@Html.ValidationMessageFor(Model => Model.CityName, "Please Enter CityName");*@
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:center">
+                                            State
+                                        </td>
+                                        <td>
+                                            @Html.DropDownListFor(m => m.StateId, Model.States, new { @style = "width:100%;", @class = "ddlState form-control" })
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:center">
+                                            City
+                                        </td>
+                                        <td>
+                                            @Html.DropDownListFor(m => m.CityId, Model.Citys, new { @style = "width:100%;", @class = "ddlCity form-control" })
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td style="text-align:center">
+                                            PinCode
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(Model => Model.Pincode, null, new { Id = "PinCode", @class = "form-control" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:center">
+                                            Latitude
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(Model => Model.Latitude, null, new { Id = "Latitude", @class = "form-control" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:center">
+                                            Longitude
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(Model => Model.Longitude, null, new { Id = "Longitude", @class = "form-control" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:center"></td>
+
+
+                                        <td style="text-align:right">
+
+                                            <div style="float:left;">
+                                                <input id="btnSubmit" type="button" value="Submit" class="btn-success form-control" />
+                                            </div>
+                                            <div style="float:left;padding-left:10px;">
+                                                <a href="/Master/Pleases" class="btn btn-warning">Cancel</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="color:red;">@ViewBag.Errors</td>
+                                    </tr>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+
+        $(".ddlState").change(function () {
+
+            var stateId = $("#StateId :selected").val();
+
+            if (stateId != "" || stateId != null) {
+
+                $.ajax({
+                    type: "GET",
+                    url: "/Master/GetCitys",
+                    data: { StateId: parseInt(stateId) },
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: successFunc,
+                    error: errorFunc
+                });
+
+                function successFunc(res, status) {
+
+                    if (res.StatusCode == 200) {
+                        // alert("Sucess Data...............");
+
+                        $(".ddlCity").empty();
+                        var data1 = '<option value=0>-Select-</option>'
+                        $(".ddlCity").append(data1);
+
+                        for (i = 0; i < res.Result.length; i++) {
+                            var data = '<option value=' + res.Result[i].CityId + '>' + res.Result[i].CityName + '</option>'
+                            $(".ddlCity").append(data);
+                        }
+
+
+                    }
+                    else if (res.StatusCode == 400) {
+
+                        alert(res.ErrorsMassage);
+
+                    }
+
+
+                }
+
+                function errorFunc() {
+                    alert('error');
+                }
+
+            }
+
+        });
+
+
+        $("#btnSubmit").click(function () {
+
+
+            var ErrorsMassage = "";
+            var ErrorsCount=0;
+
+
+            if ($("#PlaceName").val() == "") {
+                ErrorsMassage = ErrorsMassage + "Please Enter Plase Name \n"
+                ErrorsCount=0;
+            }
+
+            if ($(".ddlState :selected").val() == 0) {
+                ErrorsMassage = ErrorsMassage + "Please Select State \n"
+                ErrorsCount=1;
+            }
+
+            if ($(".ddlCity :selected").val() == 0) {
+                ErrorsMassage = ErrorsMassage + "Please Select City \n"
+                ErrorsCount=1;
+            }
+
+            if ($("#PinCode").val() == "") {
+                ErrorsMassage = ErrorsMassage + "Please Enter PinCode \n"
+                ErrorsCount =1 ;
+            }
+            if ($("#Latitude").val() == "") {
+                ErrorsMassage = ErrorsMassage + "Please Enter Latitude \n"
+                ErrorsCount = 1;
+            }
+            if ($("#Longitude").val() == "") {
+                ErrorsMassage = ErrorsMassage + "Please Enter Longitude \n"
+                ErrorsCount = 1;
+            }
+
+
+            if (ErrorsCount>0)
+            {
+                alert(ErrorsMassage);
+                return false;
+            }
+            else
+            {
+                var placeModel = {};
+                placeModel.StateId = 0;
+                placeModel.StateName = 0;
+                placeModel.CityId = 0;
+                placeModel.CityName = "";
+                placeModel.PlaceId = 0;
+                placeModel.PlaceName = "";
+                placeModel.Pincode = "";
+                placeModel.Latitude = 0;
+                placeModel.Longitude = 0;
+
+                placeModel.StateId = $(".ddlState :selected").val();
+                placeModel.StateName = "";
+                placeModel.CityId = $(".ddlCity :selected").val();
+                placeModel.CityName = "";
+                placeModel.PlaceId = $("#PlaceId").val();
+                placeModel.PlaceName = $("#PlaceName").val();
+                placeModel.Pincode = $("#PinCode").val();
+                placeModel.Latitude = $("#Latitude").val();
+                placeModel.Longitude = $("#Longitude").val();
+
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Master/Please",
+                    data: JSON.stringify(placeModel),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: successFunc,
+                    error: errorFunc
+                });
+
+                function successFunc(res, status) {
+
+                    if (res.StatusCode == 200) {
+                        alert("Saved Sucessfully..");
+
+                      //  window.location.href = "@Url.Action("Index", "Survey")" + "/" + selectedValue"
+                        window.location.href = "@Url.Action("Pleases", "Master")";
+
+
+                        //$(".ddlCity").empty();
+                        //var data1 = '<option value=0>-Select-</option>'
+                        //$(".ddlCity").append(data1);
+
+                        //for (i = 0; i < res.Result.length; i++) {
+                        //    var data = '<option value=' + res.Result[i].CityId + '>' + res.Result[i].CityName + '</option>'
+                        //    $(".ddlCity").append(data);
+                        //}
+
+
+                    }
+                    else if (res.StatusCode == 400) {
+
+                        alert(res.ErrorsMassage);
+                    }
+
+
+                }
+
+                function errorFunc() {
+                    alert('error');
+                }
+
+
+
+                return true;
+            }
+
+
+        });
+
+    });
+
+</script>

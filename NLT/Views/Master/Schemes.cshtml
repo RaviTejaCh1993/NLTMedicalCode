@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "Schemes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model IEnumerable<NLT.Models.SchemeModel>
+
+@using (Html.BeginForm("Schemes", "Master", FormMethod.Post))
+{
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Schemes</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8">
+
+            <table class="table table-responsive">
+                <caption style="text-align:right;font-weight:bold;"><a href="/Master/Scheme">Create</a></caption>
+                <tr style="background-color:#ffe9c6">
+                    <td style="text-align:center">
+                        Scheme Id
+                    </td>
+                    <td>
+                        Scheme Name
+                    </td>
+                   
+                    <td></td>
+                </tr>
+
+                @foreach (var m in Model)
+                {
+                    <tr style="background-color:#f6fcfc">
+                        <td style="text-align:center">
+                            @m.SchemeId
+                        </td>
+                        <td>
+                            @m.SchemeName
+                        </td>
+                       
+                        <td>
+                            <a href="/Master/Scheme/@m.SchemeId">Edit</a>
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </div>
+
+
+}

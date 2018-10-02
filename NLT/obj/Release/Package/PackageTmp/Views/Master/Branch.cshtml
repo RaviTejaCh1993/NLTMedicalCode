@@ -1,0 +1,583 @@
+﻿
+@model NLT.Models.BranchModel
+
+@{
+    ViewBag.Title = "Branch";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Scripts/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('ul.tabs li').click(function () {
+            var tab_id = $(this).attr('data-tab');
+
+            $('ul.tabs li').removeClass('current');
+            $('.tab-content').removeClass('current');
+
+            $(this).addClass('current');
+            $("#" + tab_id).addClass('current');
+        })
+
+    });
+</script>
+
+<style>
+    body {
+        /*margin-top: 100px;*/
+        font-family: 'Trebuchet MS', serif;
+        line-height: 1.6;
+    }
+
+    .container {
+        width: 800px;
+        margin: 0 auto;
+    }
+
+
+
+    ul.tabs {
+        margin: 0px;
+        padding: 0px;
+        list-style: none;
+    }
+
+        ul.tabs li {
+            background: none;
+            color: #222;
+            display: inline-block;
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+
+            ul.tabs li.current {
+                background: #ededed;
+                color: #222;
+            }
+
+    .tab-content {
+        display: none;
+        background: #ededed;
+        padding: 15px;
+    }
+
+        .tab-content.current {
+            display: inherit;
+        }
+
+    /*---- https://cssjockey.com/an-easy-way-to-create-tabbed-content-with-jquery-css/*/
+    /*https://codepen.io/cssjockey/pen/jGzuK*/
+</style>
+
+<style type="text/css">
+   .Class_td_Left{
+
+   }
+    
+</style>
+
+<script type="text/javascript">
+    function validationForServiceDetails() {
+
+      //  alert("Testing...");
+
+        var Errors = 0;
+        var ErrorsMessage = "";
+
+        if ($("#ddlDepartment :selected").val() == "0")
+        {
+            Errors = 1;
+            ErrorsMessage = ErrorsMessage + " Please select Department \n";
+        }
+
+        if ($("#txtFromTime").val() == "") {
+            Errors = 1;
+            ErrorsMessage = ErrorsMessage + " Please select FromTime \n";
+        }
+
+        if ($("#txtToTime").val() == "") {
+            Errors = 1;
+            ErrorsMessage = ErrorsMessage + " Please select ToTime \n";
+        } 
+
+        if ($("#ddlCompany :selected").val() == "0") {
+            Errors = 1;
+            ErrorsMessage = ErrorsMessage + " Please select Company \n";
+        }
+
+        if ($("#ddlPlease :selected").val() == "0") {
+            Errors = 1;
+            ErrorsMessage = ErrorsMessage + " Please select Place \n";
+        }
+
+        if (Errors == 1)
+        {
+            alert(ErrorsMessage);
+
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+        
+
+    }
+
+    function validationForSaveButton() {
+
+        //  alert("Testing...");
+
+        var Errors = 0;
+        var ErrorsMessage = "";
+
+        if ($("#ddlCompany :selected").val() == "0") {
+            Errors = 1;
+            ErrorsMessage = ErrorsMessage + " Please select Company \n";
+        }
+
+        if ($("#ddlPlease :selected").val() == "0") {
+            Errors = 1;
+            ErrorsMessage = ErrorsMessage + " Please select Place \n";
+        }
+
+        if ($("#ddlDepartment :selected").val() != "0")
+        {
+            if ($("#txtFromTime").val() == "") {
+                Errors = 1;
+                ErrorsMessage = ErrorsMessage + " Please select FromTime in  Service Details tab \n";
+            }
+
+            if ($("#txtToTime").val() == "") {
+                Errors = 1;
+                ErrorsMessage = ErrorsMessage + " Please select ToTime in  Service Details tab \n";
+            }
+        }
+
+
+        if (Errors == 1) {
+            alert(ErrorsMessage);
+
+            return false;
+        }
+        else {
+            return true;
+        }
+
+
+    }
+
+    $(document).ready(function () {
+
+        $(".btnDeptServiceDelete").click(function () {
+
+            var ServiceID = $(".btnDeptServiceDelete").attr("name");
+            var BrachId = $("#txtBranchId").val();
+
+           
+
+            $.ajax({
+                type: "POST", 		//GET or POST or PUT or DELETE verb
+                url: "/Master/DeleteDepartmentService/?BranchId=" + BrachId + "&ServiceId=" + ServiceID,  		// Location of the service
+                //data: "/Master/DeleteDepartmentService/BranchId=" + BrachId + "&ServiceId=" + ServiceID, 		//Data sent to server
+                contentType: "",		// content type sent to server
+                dataType: "json", 	//Expected data format from server
+                processdata: true, 	//True or False
+                success: function (json) {//On Successful service call
+                   // var result = json.name;
+                    // $("#dvAjax").html(result);
+
+                    alert("Sucess....");
+                    window.location.href = "/Master/Branch/?Id=" + BrachId; //data.redirecturl;
+                   // window.location.href("/Master/Branch/" + BrachId);
+
+                },
+                error: function (json) {//On  service call fails
+                    //var result = json.name;
+                    //$("#dvAjax").html(result);
+
+                   alert("Fail....");
+
+                }
+
+            });
+
+
+           
+
+
+        });
+
+
+        $('.CNum').keyup(function () {
+            debugger;
+            var val = $(this).val();
+            if (isNaN(val)) {
+                val = val.replace(/[^0-9\.]/g, '');
+                if (val.split('.').length > 2)
+                    val = val.replace(/\.+$/, "");
+            }
+            $(this).val(val);
+        });
+
+
+    });
+
+    
+
+</script>
+
+
+<script>
+   
+</script>
+
+
+
+@using (Html.BeginForm("Branch", "Master", FormMethod.Post))
+{
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header" style="color:#ff6a00;font-weight:bold;">@ViewBag.PageHedding</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+
+    <div class="row">
+        <div class="col-lg-4">
+            <table class="table table-responsive">
+                <tr id="lblCityIdRow" style="display:none">
+                    <td style="text-align:center">
+                        Branch Id
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(Model => Model.BranchId, "", new { Id = "txtBranchId", @readonly = "readonly" })
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align:center">
+                        Company
+                    </td>
+                    <td>
+                        @Html.DropDownListFor(m => m.CompanyId, Model.Companys, new { @style = "width:100%;", Id = "ddlCompany", @class = "form-control" })
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align:center">
+                        Please
+                    </td>
+                    <td>
+                        @Html.DropDownListFor(m => m.PleaseId, Model.Places, new { @style = "width:100%;", Id = "ddlPlease", @class = "form-control" })
+                    </td>
+                </tr>
+
+              
+            </table>
+
+
+            <table class="table table-responsive">
+                <tr>
+                    <td colspan="2">
+                        <div class="container">
+                            <ul class="tabs">
+                                <li class="tab-link current" data-tab="tab-1">Contact</li>
+                                <li class="tab-link" data-tab="tab-2">Working Hourse</li>
+                                <li class="tab-link" data-tab="tab-3" selected="true">Other Details</li>
+                                <li class="tab-link" data-tab="tab-4">Service Details</li>
+                                <li class="tab-link" data-tab="tab-5">Images</li>
+                            </ul>
+
+                            <div id="tab-1" class="tab-content current">
+                                <table class="table table-responsive">
+                                    <tr id="lblCityIdRow">
+                                        <td style="text-align:left;">
+                                           <label>Address</label> 
+                                        </td>
+                                        <td style="text-align:left">
+                                            @Html.TextBoxFor(Model => Model.Address, "", new { Id = "Address", @style = "width:50%;", @class = "form-control" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:left">
+                                            
+                                            <label>Phone1</label> 
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(Model => Model.Phone1, "", new { Id = "Phone1", @style = "width:50%;", @class = "form-control CNum", @maxlength = "10" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:left">
+                                            
+                                            <label>Phone2</label> 
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(Model => Model.Phone2, "", new { Id = "CompanyId", @style = "width:50%;", @class = "form-control CNum", @maxlength = "10" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:left">
+                                            <label>Contact Person Name</label> 
+                                            
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(Model => Model.ContactPerson, "", new { Id = "CompanyId", @style = "width:50%;", @class = "form-control" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:left">
+                                            
+                                            <label>Personal Mobile</label>
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(Model => Model.PersonalMobile, "", new { Id = "CompanyId", @style = "width:50%;", @class = "form-control CNum", @maxlength = "10" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:left">
+                                            
+                                            <label>Latitude</label>
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(Model => Model.Latitude, "", new { Id = "CompanyId", @style = "width:50%;", @class = "form-control CNum", @maxlength = "10" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:left">
+                                            
+                                            <label>Longitude</label>
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(Model => Model.Longitude, "", new { Id = "CompanyId", @style = "width:50%;", @class = "form-control CNum" , @maxlength = "10" })
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div id="tab-2" class="tab-content">
+                                <table class="table table-responsive">
+                                    <tr id="lblCityIdRow">
+                                        <td style="text-align:left;">
+                                            <label>From</label>
+                                        </td>
+                                        <td style="text-align:left">
+                                            @Html.TextBoxFor(Model => Model.WorkingHourseFrom, "", new { Id = "WorkingHourseFrom", @style = "width:50%;", @class = "form-control" })
+                                        </td>
+                                    </tr>
+                                    <tr id="lblCityIdRow">
+                                        <td style="text-align:left;">
+                                            <label>To</label>
+                                        </td>
+                                        <td style="text-align:left">
+                                            @Html.TextBoxFor(Model => Model.WorkingHourseTo, "", new { Id = "WorkingHourseTo", @style = "width:50%;", @class = "form-control" })
+                                        </td>
+                                    </tr>
+                                    <tr id="lblCityIdRow">
+                                        <td style="text-align:left;">
+                                            <label>Sunday is Holiday</label>
+                                        </td>
+                                        <td style="text-align:left">                                     
+                                            @Html.CheckBox("SundayisHoliday", Model.SundayisHoliday, new { Id = "SundayisHoliday" })
+
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div id="tab-3" class="tab-content" selected="true">
+                                <table class="table table-responsive">
+                                    <tr id="lblCityIdRow">
+                                        <td style="text-align:left;">
+                                            <label>Is NABL</label>
+                                        </td>
+                                        <td style="text-align:left">
+                                            @Html.CheckBox("IsNABL", Model.IsNABL , new { Id = "IsNABL" })
+                                        </td>
+                                    </tr>
+                                    <tr id="lblCityIdRow">
+                                        <td style="text-align:left;">
+                                            <label>Is Wheel Chair</label>
+                                        </td>
+                                        <td style="text-align:left">
+                                            @Html.CheckBox("IsWheelChair", Model.IsWheelChair, new { Id = "IsWheelChair" })
+                                        </td>
+                                    </tr>
+                                    <tr id="lblCityIdRow">
+                                        <td style="text-align:left;">
+                                            <label>Is Home Collection</label>
+                                        </td>
+                                        <td style="text-align:left">
+                                            @Html.CheckBox("IsHomeCollection", Model.IsHomeCollection, new { Id = "IsHomeCollection" })
+                                        </td>
+                                    </tr>
+                                    <tr id="lblCityIdRow">
+                                        <td style="text-align:left;">
+                                            <label>Is Parking Available</label>
+                                        </td>
+                                        <td style="text-align:left">
+                                            @Html.CheckBox("IsParkingAvailable", Model.IsParkingAvailable, new { Id = "IsParkingAvailable" })
+                                        </td>
+                                    </tr>
+                                    <tr id="lblCityIdRow">
+                                        <td style="text-align:left;">
+                                            <label>Is CreditCard Accet</label>
+                                        </td>
+                                        <td style="text-align:left">
+                                            @Html.CheckBox("IsCreditCardAccet", Model.IsCreditCardAccet, new { Id = "IsCreditCardAccet" })
+                                        </td>
+                                    </tr>
+                                    <tr id="lblCityIdRow">
+                                        <td style="text-align:left;">
+                                            <label>Is Money Back</label>
+                                        </td>
+                                        <td style="text-align:left">
+                                            @Html.CheckBox("IsMoneyBack", Model.IsMoneyBack, new { Id = "IsMoneyBack" })
+                                        </td>
+                                    </tr>
+                                    <tr id="lblCityIdRow">
+                                        <td style="text-align:left;">
+                                            <label>Is Online Payment</label>
+                                        </td>
+                                        <td style="text-align:left">
+                                            @Html.CheckBox("IsOnlinePayment", Model.IsOnlinePayment, new { Id = "IsOnlinePayment" })
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div id="tab-4" class="tab-content">
+                                <table class="table table-responsive" border="0">
+                                    <tr id="">
+                                        <td style="text-align:left;">
+                                            <label>Department</label>
+                                        </td>
+                                        <td style="text-align:left" colspan="2">
+                                            @Html.DropDownListFor(m => m.DepartmentId, Model.Departmetnts, new { Id = "ddlDepartment", @style = "width:100%;", @class = "form-control" })
+                                        </td>
+                                        <td style="text-align:left;">
+                                            <input type="submit" value="Add" id="btnAddImg" class="btn btn-success" onclick="return validationForServiceDetails()" />
+                                        </td>
+
+                                    </tr>
+                                    <tr id="">
+                                        <td style="text-align:left;">
+                                            <label>From Time</label>
+                                        </td>
+                                        <td style="text-align:left">
+                                            @Html.TextBoxFor(Model => Model.FromTime, "", new { Id = "txtFromTime", @style = "width:50%;", @class = "form-control" })
+                                        </td>
+                                        <td style="text-align:left;">
+                                            <label>To Time</label>
+                                        </td>
+                                        <td style="text-align:left">
+                                            @Html.TextBoxFor(Model => Model.ToTime , "", new { Id = "txtToTime", @style = "width:50%;", @class = "form-control" })
+                                        </td>
+                                    </tr>
+
+                                    <tr id="">
+                                        <td style="text-align:left;" colspan="4">
+                                            <table>
+                                                <tr>
+                                                    <td> Id</td>
+                                                    <td>Department Id</td>
+                                                    <td>Department Name</td>
+                                                    <td>From Time</td>
+                                                    <td>To Time</td>
+                                                    <td></td>
+                                                </tr>
+
+
+                                                @if (Model.DepartmentService.Count > 0)
+                                                {
+                                                    foreach (var service in Model.DepartmentService)
+                                                    {
+                                                        <tr>
+                                                            <td>@service.Id</td>
+                                                            <td>@service.DepartmentId</td>
+                                                            <td>@service.DepartmentName</td>
+                                                            <td>@service.FromTime</td>
+                                                            <td>@service.ToTime</td>
+                                                            <td><input type="button" value="Delete" id="btnDeptServiceDelete" name=@service.Id class="btn btn-danger btnDeptServiceDelete" /></td>
+                                                            @*<td><input type="button" value="Delete" id="btnDeptServiceDelete"  class="btn btn-danger btnDeptServiceDelete" /></td>*@
+                                                        </tr>
+                                                    }
+
+
+                                                }
+                                            </table>
+                                       </td>
+                                     
+                                    </tr>
+                                   
+                                </table>
+                            </div>
+                            <div id="tab-5" class="tab-content">
+                                <table class="table table-responsive">
+                                    <tr id="lblCityIdRow">
+                                        <td style="text-align:left;">
+                                            <label>First Image</label>
+                                        </td>
+                                        <td style="text-align:left">
+                                           @Html.TextBoxFor(Model => Model.FirstImage, "", new { Id = "FirstImage", @style = "width:50%;", @class = "form-control" })
+                                        </td>
+                                    </tr>
+                                    <tr id="lblCityIdRow">
+                                        <td style="text-align:left;">
+                                            <label>2'nd Image</label>
+                                        </td>
+                                        <td style="text-align:left">
+                                            @Html.TextBoxFor(Model => Model.SecoundImage, "", new { Id = "SecoundImage", @style = "width:50%;", @class = "form-control" })
+                                        </td>
+                                    </tr>
+                                    <tr id="lblCityIdRow">
+                                        <td style="text-align:left;">
+                                            <label>3'rd Image</label>
+                                        </td>
+                                        <td style="text-align:left">
+                                            @Html.TextBoxFor(Model => Model.ThirdImage, "", new { Id = "ThirdImage", @style = "width:50%;", @class = "form-control" })
+                                        </td>
+                                    </tr>
+                                   
+
+                                </table>
+                            </div>
+
+                        </div><!-- container -->
+
+                    </td>
+                </tr>
+
+            </table>
+
+            <table class="table table-responsive col-sm-12">
+                <tr>
+                    <td style="text-align:center"></td>
+                    @*<td>
+                        <input id="btnSubmit" type="submit" value="Submit" class="btn-success form-control" onclick="return validationForSaveButton()" />
+                    </td>*@
+
+                    <td style="text-align:right">
+                        <div style="float:right;">
+                            <div style="float:left;">
+                                <input id="btnSubmit" type="submit" value="Submit" class="btn-success form-control" onclick="return validationForSaveButton()" />
+                            </div>
+                            <div style="float:left;padding-left:10px;">
+                                <a href="/Master/Branches" class="btn btn-warning">Cancel</a>
+                            </div>
+                        </div>
+                          
+</td>
+
+                </tr>
+                <tr>
+                    <td colspan="2" style="color:red;">@ViewBag.Errors</td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+
+
+  
+
+}

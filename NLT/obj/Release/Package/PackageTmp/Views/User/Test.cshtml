@@ -1,0 +1,213 @@
+﻿
+
+@model NLT.Models.Test
+
+@{
+    ViewBag.Title = "Test";
+    Layout = "~/Views/Shared/_LayoutMasterClient.cshtml";
+}
+
+
+@*<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">*@
+@*<script src="//code.jquery.com/jquery-1.10.2.js"></script>*@
+@*<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>*@
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+      
+
+        $(".Location").autocomplete({
+            source: function (request, response) {
+
+               // alert("ssssssssssssssssss");
+
+                $.ajax({
+                    url: "/User/getlocations",
+                    type: "POST",
+                    dataType: "json",
+                    data: { Prefix: request.term },
+                    success: function (data) {
+
+                     //   alert("ssssssssssssssssss");
+
+                        response($.map(data, function (item) {
+                            return { label: item.LocationName, value: item.LocationName };
+                        }))
+
+                    }
+                })
+            },
+            messages: {
+                noResults: "", results: ""
+            }
+        });
+
+
+        $(".Test").autocomplete({
+            source: function (request, response) {
+
+                // alert("ssssssssssssssssss");
+
+                $.ajax({
+                    url: "/User/getTests",
+                    type: "POST",
+                    dataType: "json",
+                    data: { Prefix: request.term },
+                    success: function (data) {
+
+                        //   alert("ssssssssssssssssss");
+
+                        response($.map(data, function (item) {
+                            return { label: item.Name, value: item.Name };
+                        }))
+
+                    }
+                })
+            },
+            messages: {
+                noResults: "", results: ""
+            }
+        });
+
+    })
+</script>
+
+<script type="text/javascript">
+    function funResult(changeVal)
+    {
+        debugger;
+        var res = this;
+
+        // alert("sssssss" + changeVal.value);
+
+        $(".txtTest").focus();
+
+    }
+
+</script>
+
+<style type="text/css">
+.button
+{
+	width: 150px;
+	padding: 10px;
+	background-color: #FF8C00;
+	box-shadow: -8px 8px 10px 3px rgba(0,0,0,0.2);
+    font-weight:bold;
+	text-decoration:none;
+}
+#cover{
+    position:fixed;
+    top:0;
+    left:0;
+    background:rgba(0,0,0,0.6);
+    z-index:5;
+    width:100%;
+    height:100%;
+    display:none;
+}
+#loginScreen
+{
+    height:380px;
+    width:340px;
+    margin:0 auto;
+    position:relative;
+    z-index:10;
+    display:none;
+	background: url(login.png) no-repeat;
+	border:5px solid #cccccc;
+	border-radius:10px;
+}
+#loginScreen:target, #loginScreen:target + #cover{
+    display:block;
+    opacity:2;
+}
+.cancel
+{
+    display:block;
+    position:absolute;
+    top:3px;
+    right:2px;
+    background:rgb(245,245,245);
+    color:black;
+    height:30px;
+    width:35px;
+    font-size:30px;
+    text-decoration:none;
+    text-align:center;
+    font-weight:bold;
+}
+</style>
+
+@using (Html.BeginForm("Test", "User", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <hr />
+
+        <div class="form-group">
+           
+            <div class="col-md-12" style="text-align:center;height:200px;">
+
+                <table align="center">
+
+                    <tr>
+                        <td>location :  </td>
+                        <td>@Html.TextBoxFor(Model => Model.Name, null, new { Id = "txtLocation", @Name = "txtLocation", @class = "form-control Location", @onchange = "funResult(this);" })</td>
+
+                        <td> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </td>
+                        <td>Test :  </td>
+                        <td>
+                            @Html.TextBoxFor(Model => Model.Name, null, new { Id = "txtTest", @Name = "txtTest", @class = "form-control Test", @onchange = "funResult(this);" })
+                        </td>
+                        <td><input type="submit" value="Search" class="btn btn-success" /></td>
+                    </tr>
+
+                </table>
+
+            </div>
+
+            @*<div class="col-md-12">
+              
+            </div>
+            <div class="col-md-12">
+                <br />
+               <input type="submit" value="Search" class="btn btn-success" />
+
+            </div>*@
+        </div>
+
+    </div>
+    <div id="loginScreen">
+        <a href="#" class="cancel">&times;</a>
+    </div>
+    <div id="cover">
+    </div>
+}
+
+@section scripts
+{
+    @*<link href="~/Scripts/jquery-ui-themes-1.12.1/themes/smoothness/jquery-ui.css" rel="stylesheet" />
+
+        <script src="~/Scripts/jquery-ui.min.js"></script>*@
+
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    @*<script src="//code.jquery.com/jquery-1.10.2.js"></script>*@
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+}
+
+@if (ViewBag.Message != null)
+{
+    <script type="text/javascript">
+            @*window.onload = function () {
+                alert("@ViewBag.Message");
+            };*@
+        alert("@ViewBag.Message");
+
+    </script>
+}

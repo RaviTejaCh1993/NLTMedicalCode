@@ -1,0 +1,193 @@
+﻿
+@model NLT.Models.TestLocationModel
+
+@{
+    ViewBag.Title = "MapTestlocation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<script src="~/Scripts/jquery-1.11.3.min.js"></script>
+
+<style>
+    .class1 {
+        text-align: left;
+        padding-left: 850px;
+    }
+</style>
+
+
+
+@using (Html.BeginForm("MapTestLocation", "Master", FormMethod.Post))
+{
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header" style="color:#ff6a00;font-weight:bold;">@ViewBag.PageHedding</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+
+    <div class="row">
+        <div class="col-lg-4">
+            <table class="table table-responsive">
+                <tr id="lblCityIdRow" style="display:none">
+                    <td>
+                        MapId
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(Model => Model.MapId, null, new { @class = "form-control" })
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="text-align:center">
+                        Company
+                    </td>
+                    <td>
+                        @Html.DropDownListFor(m => m.CompanyId, Model.Companys,null ,new {Id= "ddlCompany", @class = "form-control" })
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="text-align:center">
+                        Location
+                    </td>
+                    <td>
+                        @Html.DropDownListFor(m => m.LocationId, Model.Locations, null, new { Id = "ddlLocation", @class = "form-control" })
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="text-align:center">
+                        Test
+                    </td>
+                    <td>
+                        @Html.DropDownListFor(m => m.TestId, Model.Tests, null, new { Id = "ddlTest", @class = "form-control" })
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align:center">
+                        Price
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(Model => Model.price,null,new { Id = "price", @class = "form-control" })
+
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align:center">
+                       Active Status
+                    </td>
+                    <td style="text-align:left">
+                       @Html.CheckBox("ActiveStatus", Model.ActiveStatus, new { Id = "ActiveStatus",@style= "width:150px;height:15px;text-align:left" })
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align:center"></td>
+                    <td></td>
+                </tr>
+               
+            </table>
+        </div>
+
+        <div class="col-lg-4">
+            <table class="table table-responsive">
+                <tr id="lblCityIdRow" style="display:none">
+                    <td>
+                        
+                    </td>
+                    <td>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align:center">
+                        Discount Applay
+                    </td>
+                    <td>
+                        @Html.CheckBox("CustomerDiscountApplay", Model.CustomerDiscountApplay, new { Id = "CustomerDiscountApplay", @style = "width:150px;height:15px;text-align:left"  })
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td style="text-align:center">
+                        Customer Discount Type
+                    </td>
+                    <td>
+                        @Html.DropDownListFor(m => m.CustomerDiscountTypeId, Model.CustomerDiscountTypes, new {id= "ddlCustomerDiscountType", @class = "form-control" })
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td style="text-align:center">
+                        Customer Discount
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(Model => Model.CustomerDiscount, new {Id= "CustomerDiscount", @class = "form-control" })
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="text-align:center">
+                        Remarks
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(Model => Model.Remarks, new { Id = "Remarks", @class = "form-control" })
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="text-align:center"></td>
+                    <td>
+                        <input id="btnSubmit" type="submit" value="Submit" class="btn-success" onclick="return validate" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="color:red;">@ViewBag.Errors</td>
+                </tr>
+            </table>
+        </div>
+    
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $(".btn-success").click(function () {
+
+                var Errors = "";
+
+                if ($("#ddlCompany :selected").val() == "0") {
+                    Errors = Errors + "Please Select Company \n";
+                }
+
+                if ($("#ddlLocation :selected").val() == "0") {
+                    Errors = Errors + "Please Select Location \n";
+                }
+                if ($("#ddlTest :selected").val() == "0") {
+                    Errors = Errors + "Please Select Test \n";
+                }
+
+                if ($("#price").val() <= "0") {
+                    Errors = Errors + "Price Should be greater then zero(>0) \n";
+                }
+
+                if (Errors != "") {
+                    alert(Errors);
+                    return false
+                }
+                else
+                    return true;
+
+            });
+
+        });
+
+    </script>
+
+}

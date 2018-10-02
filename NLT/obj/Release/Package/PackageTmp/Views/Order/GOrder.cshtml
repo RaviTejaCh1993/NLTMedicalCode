@@ -1,0 +1,124 @@
+﻿
+
+@{
+    ViewBag.Title = "Orders";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@model  NLT.Models.GOrder
+
+<style>
+    .Grid-Headder-bg-color {
+        background-color: #3b74fa;
+        color: white;
+        font-weight: bold;
+    }
+
+    .text-align-right {
+        text-align: right;
+    }
+</style>
+
+@using (Html.BeginForm("GOrder", "Order", FormMethod.Post))
+{
+    <div class="container">
+        <br />
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default" style="overflow:scroll;">
+                    <div class="panel-heading">
+                        <b> Orders Details </b>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-8">
+
+                                <table class="table table-responsive" border="1">
+                                    <tr>
+                                        <td>
+                                            <b style="color:#3b74fa;"> Order Id:</b> @Model.OrderId &nbsp;&nbsp;&nbsp;
+                                            <b style="float:right"><u><a href="" style="color:#2caa14;">Report</a></u></b>
+                                        </td>
+                                       
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <table class="table table-responsive">
+                                                <tr>
+                                                    <td>
+                                                        For: @Model.TestPersonName
+                                                    </td>
+                                                    <td class="text-align-right">
+                                                        Booked on: @Model.Appointmentdate
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        Email:
+                                                    </td>
+                                                    <td class="text-align-right">
+                                                        Order status:
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        Phone: @Model.PhoneNumber
+                                                    </td>
+                                                    <td class="text-align-right">
+                                                        Payment Mode: @Model.PaymentType
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <b style="color:#3b74fa;"> Items </b>
+                                            <table class="table table-responsive">
+                                                @{ decimal SubTotal = 0; int sequenceNumber = 0; decimal DiagnosticKitFee = 0; decimal OrderTotal = 0;  }
+                                                @foreach (var m in Model.OrderItems)
+                                                {
+                                                    <tr>
+                                                        <td>
+                                                            @m.TestName
+                                                        </td>
+                                                        <td class="text-align-right">
+                                                            $ @m.MRP
+                                                        </td>
+                                                    </tr>
+                                                    SubTotal = (Convert.ToDecimal(SubTotal) + Convert.ToDecimal(@m.MRP));
+
+                                                }
+                                               @{ OrderTotal = (Convert.ToDecimal(SubTotal) + Convert.ToDecimal(DiagnosticKitFee));}
+                                                <tr>
+                                                    <td></td>
+                                                    <td class="text-align-right">
+                                                        <b style="color:#3b74fa;"> SubTotal </b>   : $  @SubTotal 
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td class="text-align-right">
+                                                        <b style="color:#3b74fa;"> Diagnostic Kit Fee </b>   : $  @DiagnosticKitFee 
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td class="text-align-right">
+                                                        <b style="color:#3b74fa;"> Order Total </b>   :  $  @OrderTotal  
+                                                        
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+}

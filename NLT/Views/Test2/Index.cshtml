@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutMasterClient.cshtml";
+}
+
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+@*<script src="https://code.jquery.com/jquery-1.12.4.js"></script>*@
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+<div class="ui-widget">
+    <label for="tags">Tags: </label>
+    <input id="tags">
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        debugger;
+        $("#tags").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    type: "POST",
+                    url: "/Test2/Index",
+                    dataType: "json",
+                    data: {
+                        prefix: request.term
+                    },
+                    success: function (data) {
+                        debugger;
+                        response($.map(data, function (item) {
+                            return { label: item.label, value: item.label };
+                        }))
+
+                    }
+                });
+            },
+            minLength: 1,
+
+        });
+    });
+</script>

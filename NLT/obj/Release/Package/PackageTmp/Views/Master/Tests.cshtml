@@ -1,0 +1,103 @@
+﻿
+
+
+@model IEnumerable<NLT.Models.TestModel>
+
+@{
+    ViewBag.Title = "Tests";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .Grid-Headder-bg-color {
+        background-color: #3b74fa;
+        color: white;
+        font-weight: bold;
+    }
+</style>
+
+@using (Html.BeginForm("Tests", "Master", FormMethod.Post))
+{
+    <div class="container">
+        <br />
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <b> Tests </b>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-10">
+                                <table class="table table-responsive">
+                                    <caption style="text-align:right;font-weight:bold;"><a href="/Master/TestMaster">Create</a></caption>
+                                    <tr class="Grid-Headder-bg-color">
+                                        <td style="text-align:center">
+                                            Test Id
+                                        </td>
+                                        <td>
+                                            Test Name
+                                        </td>
+                                        <td>
+                                            Display Name
+                                        </td>
+                                        <td>
+                                            Department
+                                        </td>
+
+                                        <td>
+                                            Active Status
+                                        </td>
+
+                                        <td></td>
+                                    </tr>
+
+                                    @foreach (var m in Model)
+                                    {
+                                        <tr style="background-color:#f6fcfc">
+                                            <td style="text-align:center">
+                                                @m.TestId
+                                            </td>
+                                            <td>
+                                                @m.TestName
+                                            </td>
+                                            <td>
+                                                @m.DisplayName
+                                            </td>
+                                            <td>
+                                                @m.DepartmentName
+                                            </td>
+
+                                            <td>
+
+                                                @if (@m.ActiveStatus == true)
+                                                {
+                                                    <label style="color:#0d0afb;">Active</label>
+                                                }
+                                                else
+                                                {
+                                                    <label style="color:red;">Not-Active</label>
+                                                }
+
+                                            </td>
+
+                                            <td>
+                                                <a href="/Master/TestMaster/@m.TestId">Edit</a>
+                                            </td>
+                                        </tr>
+                                    }
+
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+}
+

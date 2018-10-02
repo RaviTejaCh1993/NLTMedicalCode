@@ -1,0 +1,70 @@
+﻿
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+@model NLT.Models.CompanyModel
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+<script type="text/javascript">
+
+
+        $("#btnsimpleform").on("submit", function (event) {
+            debugger;
+                var $this = $(this);
+                var frmValues = $this.serialize();
+                $.ajax({
+                        type: $this.attr('method'),
+                        url: $this.attr('action'),
+                        data: frmValues
+                })
+                    .done(function (result) {
+                            $("#para").text("Serialized! Input String is " + frmValues);
+                    })
+                    .fail(function () {
+                            $("#para").text("An error occured");
+                    });
+                event.preventDefault();
+        });
+
+
+
+</script>
+
+
+@using (Html.BeginForm("Index", "Test", FormMethod.Post, new { enctype = "multipart/form-data", Id = "FormId" }))
+{
+
+    <div>
+        <table>
+            <tr>
+                <td>
+                    CompanyId
+                </td>
+                <td>
+
+                    @Html.TextBoxFor(Model => Model.CompanyId)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    CompanyName
+                </td>
+                <td>
+                    @Html.TextBoxFor(Model => Model.CompanyName)
+                </td>
+            </tr>
+        </table>
+    </div>
+
+
+    <div>
+        @Html.LabelFor(x => x.File)
+        @Html.TextBoxFor(x => x.File, new { type = "file" })
+        @Html.ValidationMessageFor(x => x.File)
+    </div>
+    @*<button type="submit">Upload</button>*@
+    <input type="submit" id="btnsimpleform" value="Upload New Image" />
+}

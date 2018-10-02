@@ -1,0 +1,72 @@
+﻿
+
+
+@model IEnumerable<NLT.Models.StateModel>
+
+@{
+    ViewBag.Title = "State";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .Grid-Headder-bg-color{
+        background-color:#3b74fa;
+        color:white;
+        font-weight:bold;
+    }
+</style>
+
+@using (Html.BeginForm("state", "Master", FormMethod.Post))
+{
+    <div class="container">
+        <br />
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <b> States </b>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <table class="table table-responsive">
+                                    <caption style="text-align:right;font-weight:bold;"><a href="/Master/State">Create</a></caption>
+                                    <tr class="Grid-Headder-bg-color">
+                                        <td style="text-align:center">
+                                            State Id
+                                        </td>
+                                        <td>
+                                            State Name
+                                        </td>
+                                        <td></td>
+                                    </tr>
+
+                                    @foreach (var m in Model)
+                                        {
+                                        <tr style="background-color:#f6fcfc">
+                                            <td style="text-align:center">
+                                                @m.StateId
+                                            </td>
+                                            <td>
+                                                @m.StateName
+                                            </td>
+                                            <td>
+                                                <a href="/Master/State/@m.StateId">Edit</a>
+                                            </td>
+                                        </tr>
+                                    }
+
+                                </table>
+                        
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      
+    </div>
+    
+
+}
+

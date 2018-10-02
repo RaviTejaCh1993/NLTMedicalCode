@@ -1,0 +1,300 @@
+﻿
+
+@model NLT.Models.TestModel
+
+@{
+    ViewBag.Title = "TestMaster";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+@using (Html.BeginForm("TestMaster", "Master", FormMethod.Post))
+{
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header" style="color:#ff6a00;font-weight:bold;">@ViewBag.PageHedding</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+
+
+    <div class="row">
+        <div class="col-lg-4">
+            <table class="table table-responsive">
+                <tr id="lblCityIdRow" style="display:none">
+                    <td>
+                        Test Id
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(Model => Model.TestId, "", new { @readonly = "readonly" })
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="text-align:center">
+                        Test Name
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(Model => Model.TestName, "", new { Id = "TestName", @class = "form-control" })
+
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align:center">
+                        Department
+                    </td>
+                    <td>
+                        @Html.DropDownListFor(m => m.DepartmentId, Model.Department, null, new { Id = "ddlDepartment", @class = "form-control" })
+                    </td>
+                </tr>
+            </table>
+
+            <table class="table table-responsive">
+                <tr>
+                    <td style="text-align:left;" colspan="2">
+
+                        <div class="container">
+
+                            <ul class="tabs">
+                                <li class="tab-link current" data-tab="tab-1">Add Test</li>
+                                <li class="tab-link" data-tab="tab-2">Settings</li>
+                                @*<li class="tab-link" data-tab="tab-3">Tab Three</li>
+                                    <li class="tab-link" data-tab="tab-4">Tab Four</li>*@
+                            </ul>
+
+                            <div id="tab-1" class="tab-content current">
+
+                                <table class="table table-responsive">
+
+                                    <tr>
+                                        <td style="text-align:center">
+                                            Display Name
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(Model => Model.DisplayName, "", new { Id = "DisplayName", @class = "form-control", @style = "width:50%" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:center">
+                                            Specimen
+                                        </td>
+                                        <td>
+                                            @Html.DropDownListFor(m => m.SpecimenId, Model.Specimen, null, new { Id = "ddlSpecimen", @class = "form-control", @style = "width:50%" })
+
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            </div>
+                            <div id="tab-2" class="tab-content">
+                                <table class="table table-responsive">
+
+                                    <tr>
+                                        <td style="text-align:center">
+                                            Applicable To
+                                        </td>
+                                        <td>
+                                            @foreach (var ML in Model.Applicable)
+                                            {
+                                                @Html.RadioButtonFor(m => m.ApplicableTo, ML.Value)
+                                                @Html.Label(ML.Text)
+                                            }
+
+                                        </td>
+
+                                        <td style="text-align:center">
+                                            House Visit
+                                        </td>
+                                        <td>
+
+                                            @Html.CheckBox("HouseVisit", Model.HouseVisit, new { Id = "HouseVisit" })
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:center">
+                                            Reporting days
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(Model => Model.ReportingDays, null, new { Id = "ReportingDays", @class = "form-control" })
+                                        </td>
+                                        <td style="text-align:center">
+                                            Nabl
+                                        </td>
+                                        <td>
+                                            @Html.CheckBox("Nabl", Model.Nabl, new { Id = "Nabl" })
+                                            @*<input type="checkbox" name="cbNabl" id="lblcbNabl" />*@
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td style="text-align:center">
+                                            Notes
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(Model => Model.Remarks, null, new { @class = "form-control" })
+                                        </td>
+                                        <td style="text-align:center">
+                                            Active
+                                        </td>
+                                        <td>
+                                            @Html.CheckBox("ActiveStatus", Model.ActiveStatus, new { Id = "ActiveStatus" })
+                                            @*<input type="checkbox" name="cbActive" id="lblActive" />*@
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+
+
+                        </div><!-- container -->
+
+                    </td>
+
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td style="text-align:left">
+
+                       
+                        <div style="float:right;">
+                            <div style="float:left;">
+                                <input id="btnSubmit" type="submit" value="Submit" style="width:100%" class="btn-success form-control" onclick="return validate" />
+                            </div>
+                            <div style="float:left;padding-left:10px;">
+                                <a href="/Master/Tests" class="btn btn-warning">Cancel</a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="2" style="color:red;">@ViewBag.Errors</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+
+
+    <script src="~/Scripts/jquery-1.11.3.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $("#btnSubmit").click(function () {
+
+                var Errors = "";
+
+                if ($("#TestName").val() == "") {
+                    Errors = Errors + "Please Enter TestName \n";
+                }
+                if ($("#DisplayName").val() == "") {
+                    Errors = Errors + "Please Enter DisplayName \n";
+                }
+
+                //if ($("#ddlSpecimen :selected").val() == "0") {
+                //    Errors = Errors + "Please Select Specimen \n";
+                //}
+
+                if ($("#ddlDepartment :selected").val() == "0") {
+                    Errors = Errors + "Please Select Department \n";
+                }
+
+                if ($("#ReportingDays").val() == "") {
+                    Errors = Errors + "Please Enter Reporting Days \n";
+                }
+
+                if ($("#ReportingDays").val() != "" && $("#ReportingDays").val() == "0") {
+                    Errors = Errors + "Reporting Days should be greater then zero \n";
+                }
+
+
+                if (Errors != "") {
+                    alert(Errors);
+                    return false
+                }
+                else
+                    return true;
+
+            });
+
+        });
+
+    </script>
+
+    <style>
+        .class1 {
+            text-align: left;
+            padding-left: 850px;
+        }
+    </style>
+
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('ul.tabs li').click(function () {
+                var tab_id = $(this).attr('data-tab');
+
+                $('ul.tabs li').removeClass('current');
+                $('.tab-content').removeClass('current');
+
+                $(this).addClass('current');
+                $("#" + tab_id).addClass('current');
+            })
+
+        });
+    </script>
+
+    <style>
+        body {
+            /*margin-top: 100px;*/
+            font-family: 'Trebuchet MS', serif;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 800px;
+            margin: 0 auto;
+        }
+
+
+
+        ul.tabs {
+            margin: 0px;
+            padding: 0px;
+            list-style: none;
+        }
+
+            ul.tabs li {
+                background: none;
+                color: #222;
+                display: inline-block;
+                padding: 10px 15px;
+                cursor: pointer;
+            }
+
+                ul.tabs li.current {
+                    background: #ededed;
+                    color: #222;
+                }
+
+        .tab-content {
+            display: none;
+            background: #ededed;
+            padding: 15px;
+        }
+
+            .tab-content.current {
+                display: inherit;
+            }
+
+        /*---- https://cssjockey.com/an-easy-way-to-create-tabbed-content-with-jquery-css/*/
+        /*https://codepen.io/cssjockey/pen/jGzuK*/
+    </style>
+
+}

@@ -1,0 +1,254 @@
+﻿
+@model NLT.Models.CompanyModel
+
+@{
+    ViewBag.Title = "Company";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var imagePath_ = "~/images/concert.jpg";
+}
+
+<script src="~/Scripts/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript">
+
+    function fileCheck(e) {
+        debugger;
+        // alert("Imageeeeeeeeeeeeee");
+        //https://www.youtube.com/watch?v=btmJrgRldtk
+        // https://www.youtube.com/results?search_query=image+save+in+mvc+using+jquery+
+
+
+        var Files = e.files;
+        if (Files && Files[0]) {
+            ReadImage(Files[0])
+        }
+
+    }
+
+    var ReadImage = function (file) {
+
+        var reader = new FileReader;
+        var image = new Image;
+
+        reader.readAsDataURL(file);
+
+        reader.onload = function (_file) {
+
+            image.src = _file.target.result;
+            image.onload = function () {
+                $("#targetImg").attr('src', _file.target.result);
+            }
+        }
+
+    }
+
+    $(document).ready(function () {
+
+        $("#btnSubmit").click(function () {
+
+            var File_ = $("#ImageBrowes").get(0).files;
+            var data_1 = new FormData();
+
+            //if ($("#CompanyId").val != 0)
+            //{
+
+            //    data_1.append("CompanyId", $("#CompanyId").val())
+            //    data_1.append("CompanyName", $("#CompanyName").val())
+            //    data_1.append("Remarks", $("#Remarks").val())
+            //    data_1.append("ImageFile", File_[0])
+
+            //}
+            //else
+            //{
+            //    data_1.append("CompanyId", 0)
+            //    data_1.append("CompanyName", $("#CompanyName").val())
+            //    data_1.append("Remarks", $("#Remarks").val())
+            //    data_1.append("ImageFile", File_[0])
+
+            //}
+
+
+            //data_1.append("CompanyId", "0")
+            data_1.append("CompanyName", $("#CompanyName").val())
+            data_1.append("Remarks", $("#Remarks").val())
+            data_1.append("ImageFile", File_[0])
+
+
+            var CompanyModel = {}
+            CompanyModel.CompanyName = "sssss";
+            CompanyModel.Remarks = $("#Remarks").val();
+            CompanyModel.ImageFile = File_[0];
+
+           // alert("sssssssssss");
+
+
+            var data = { "name": "John Doe" }
+            $.ajax({
+                type: "POST",
+                url: "/Master/Company",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(CompanyModel),
+                success: function (result) {
+                    alert("Testing..Sucesss............"); // result is an object which is created from the returned JSON
+                },
+            });
+
+
+
+
+
+        });
+
+
+    $("#btnSubmit_1").click(function () {
+
+        var File_ = $("#targetImg")[0];  //.get(0).files;
+        var data_1 = new FromData();
+        data_1.append()
+
+        var File = $("#targetImg")[0]; //.get(0).files;
+        var src = $("#targetImg")[0].currentSrc;
+
+        var CompanyModel = {};
+        CompanyModel.CompanyId = $("#CompanyId").val();
+        CompanyModel.CompanyName = $("#CompanyName").val();
+        CompanyModel.ImagePath = "";
+        CompanyModel.ImageFile = src;
+        CompanyModel.Remarks = $("#Remarks").val();
+
+        //var data_ = new FormData;
+        //data_.append("CompanyId", $("#CompanyId").val());
+
+
+        $.ajax({
+
+            type : "POST",
+            url : "/Master/Company",
+           // data: data_,
+           data: JSON.stringify(CompanyModel),
+           dataType: "json",
+           contentType: "application/json; charset=utf-8",
+
+            //contentType: "application/json",
+           // processData: false,
+            sucess: function (response) {
+                window.location.href = "@Url.Action("Companys", "Master")";
+            },
+            error: function (response) {
+
+            }
+
+
+        });
+
+
+    });
+
+
+
+    });
+
+</script>
+
+@using (Html.BeginForm("Company", "Master", FormMethod.Post))
+{
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header" style="color:#ff6a00;font-weight:bold;">@ViewBag.PageHedding</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+
+    <div class="row">
+        <div class="col-lg-4">
+            <table class="table table-responsive">
+                <tr id="lblCityIdRow" style="display:none">
+                    <td style="text-align:center">
+                        Company Id
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(Model => Model.CompanyId, "", new {Id= "CompanyId", @readonly = "readonly" })
+
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align:center">
+                        Company Name
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(Model => Model.CompanyName, null, new { Id = "CompanyName", @class = "form-control" })
+                       
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="text-align:center">
+                        Image
+                    </td>
+                    <td>
+                        <input type="file" name="ImageData" id="ImageBrowes" onchange="fileCheck(this);" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="text-align:center">
+                       
+                    </td>
+                    <td>
+                        <img id="targetImg" src="@Model.ImagePath" alt="Sample Image" width="300px" />
+                        <div style="visibility:hidden">
+                            <label id="lblImageUrl">@Model.ImagePath</label>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="text-align:center">
+                        Remarks
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(Model => Model.Remarks, null, new {Id= "Remarks", @class = "form-control" })
+                     
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td style="text-align:center"></td>
+                    <td>
+                        <input id="btnSubmit" type="button" value="Submit" class="btn-success form-control" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="color:red;">@ViewBag.Errors</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $(".btn-success").click(function () {
+
+                var Errors = "";
+                if ($("#CompanyName").val() == "") {
+                    Errors = Errors + "Please Enter CompanyName \n";
+                }
+
+
+                if (Errors != "") {
+                    alert(Errors);
+                    return false
+                }
+                else
+                    return true;
+
+            });
+
+        });
+
+    </script>
+}

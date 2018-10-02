@@ -1,0 +1,82 @@
+﻿
+@{
+    ViewBag.Title = "SchemeDetailsHeader";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<h2>SchemeDetailsHeader</h2>*@
+
+<script src="~/Scripts/jquery-1.11.3.min.js"></script>
+
+@model  IEnumerable<NLT.Models.SchemeDetailsModel>
+
+@using (Html.BeginForm("SchemeDetailsHeadder", "Master", FormMethod.Post))
+{
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header" style="color:#ff6a00;font-weight:bold;">@ViewBag.PageHedding</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8">
+
+            <table class="table table-responsive">
+                <caption style="text-align:right;font-weight:bold;"><a href="/Master/SchemeDetails">Create</a></caption>
+                <tr style="background-color:#ffe9c6">
+                    <td>
+                        SchemeDetails Id
+                    </td>
+                    <td>
+                        Company 
+                    </td>
+                    <td>
+                        Branch 
+                    </td>
+                    <td>
+                        Department 
+                    </td>
+                    <td>
+
+                    </td>
+                </tr>
+
+                @foreach (var M in Model)
+                {
+                    <tr style="background-color:#f6fcfc">
+                        <td>
+                            @M.SchemeDetailsId
+                        </td>
+                        <td>
+                            @M.CompanyName
+                        </td>
+                        <td>
+                            @M.BranchName
+                        </td>
+                        <td>
+                            @M.DepartmentName
+                        </td>
+                        <td>
+                            <a href="/Master/SchemeDetails/@M.SchemeDetailsId">Edit</a>
+                        </td>
+                    </tr>
+                    
+                }
+
+
+               
+            </table>
+
+        </div>
+
+    </div>
+
+
+
+
+
+}
+
+

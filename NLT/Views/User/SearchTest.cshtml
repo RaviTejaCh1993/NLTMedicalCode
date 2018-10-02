@@ -1,0 +1,173 @@
+﻿
+
+@model  NLT.Models.LocationTestModel
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutMasterClient.cshtml";
+}
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+<style>
+    .div-class1 {
+        background-color: #fbf1b7;
+        height: 300px;
+    }
+
+    .div-class2 {
+        /*text-align:center;*/
+        align-content: center;
+    }
+
+    .lbl-class3 {
+        color: blue;
+        font-weight: bold;
+    }
+
+    #inner {
+        width: 80%;
+        height: 50%;
+        top: 25%;
+        margin: 0 auto;
+        position: relative;
+        /*background:#e1dbdb;*/
+    }
+</style>
+
+<style type="text/css">
+    .table > tbody > tr > th, .table > tbody > tr > td {
+        border-top: none;
+    }
+
+    .MandatorySymbolStyle {
+        color: red;
+    }
+</style>
+
+
+@*<h3 style="color:#ff7500">Location Page</h3>*@
+<hr />
+
+@using (Html.BeginForm("SearchTest", "User", FormMethod.Post))
+{
+
+
+    <div class="container">
+        <div class="row">
+            <div class="div-class1">
+
+                <div id="inner">
+                    <table class="table">
+                        <tr>
+                            <td class="lbl-class3">
+                                location
+                            </td>
+                            <td>
+                                @Html.DropDownListFor(m => m.LocationId, Model.Locations, null, new { Id = "ddlLocationId", @class = "form-control" })
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="lbl-class3"> Test</td>
+                            <td>
+                                @Html.DropDownListFor(m => m.TestId, Model.Tests, null, new { id = "ddlTest", @class = "form-control" })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="lbl-class3"> </td>
+                            <td>
+                                <input type="submit" id="btnSave" class="btn btn-success" value="Search" />
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <script type="text/javascript">
+
+    $(document).ready(function () {
+
+
+        $("#btnSave").click(function () {
+
+            var Erros = "";
+
+            if ($("#ddlLocationId :selected").val() == "0" || $("#ddlLocationId :selected").val() == "" )
+            {
+                Erros = Erros + "Please Select Location \n";
+            }
+            if ($("#ddlTest :selected").val() == "0" || $("#ddlTest :selected").val() == "") {
+                Erros = Erros + "Please Select Test \n";
+            }
+
+            if (Erros !="" )
+            {
+                alert(Erros);
+
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+
+
+        });
+
+
+        $("#ddlLocationId").change(function () {
+
+            // alert("sssssssssssssss");
+
+            var locationId = 0;
+
+            if ($("#ddlLocationId").val() != null || $("#ddlLocationId").val() != "")
+            {
+                locationId = $("#ddlLocationId").val();
+            }
+            else
+            {
+                locationId = 0;
+            }
+
+            var LocationModel = { LocationId: locationId }
+
+            $.ajax({
+                type: 'Post',
+                dataType: "json",
+                url: "/User/getTestsbyLicationId",
+                contentType: 'application/json',
+                data: JSON.stringify(LocationModel),
+                success: function (response) {
+                    // alert("success!")
+
+                    //$("#ddlTest").empty();
+
+                    //$("#ddlTest").append("<option id=></option>")
+
+                    $("#ddlTest").empty().append('<option selected="selected" value="0">-Select-</option>');
+                    $.each(response, function () {
+                        $("#ddlTest").append($("<option></option>").val(this.TestId).html(this.TestName));
+                    });
+
+                },
+                error: function (response) {
+                    alert("error") // I'm always get this.
+                }
+
+            })
+        })
+
+    });
+
+    </script>
+
+}

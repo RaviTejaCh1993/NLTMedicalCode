@@ -1,0 +1,81 @@
+﻿
+@model IEnumerable<NLT.Models.PlaceModel>
+
+@{
+    ViewBag.Title = "Pleases";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .Grid-Headder-bg-color {
+        background-color: #3b74fa;
+        color: white;
+        font-weight: bold;
+    }
+</style>
+
+@using (Html.BeginForm("Pleases", "Master", FormMethod.Post))
+{
+
+    <div class="container">
+        <br />
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <b> Places </b>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <table class="table table-responsive">
+                                    <caption style="text-align:right;font-weight:bold;"><a href="/Master/Please">Create</a></caption>
+                                    <tr class="Grid-Headder-bg-color">
+                                        <td style="text-align:center">
+                                            Please Id
+                                        </td>
+                                        <td>
+                                            Please Name
+                                        </td>
+                                        <td>
+                                            City Name
+                                        </td>
+                                        <td>
+                                            State Name
+                                        </td>
+                                        <td></td>
+                                    </tr>
+
+                                    @foreach (var m in Model)
+                                     {
+                                        <tr style="background-color:#f6fcfc">
+                                            <td style="text-align:center">
+                                                @m.PlaceId
+                                            </td>
+                                            <td>
+                                                @m.PlaceName
+                                            </td>
+                                            <td>
+                                                @m.CityName
+                                            </td>
+                                            <td>
+                                                @m.StateName
+                                            </td>
+                                            <td>
+                                                <a href="/Master/Please/@m.PlaceId">Edit</a>
+                                            </td>
+                                        </tr>
+                                    }
+
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+}
+

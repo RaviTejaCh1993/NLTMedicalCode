@@ -1,0 +1,218 @@
+﻿
+@model NLT.Models.CompanyModel
+
+@{
+    ViewBag.Title = "Company";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var imagePath_ = "~/images/concert.jpg";
+}
+
+<script src="~/Scripts/jquery-1.11.3.min.js"></script>
+
+
+<script type="text/javascript">
+
+    $("#btnSubmit").on("submit", function (event) {
+            debugger;
+                var $this = $(this);
+                var frmValues = $this.serialize();
+                $.ajax({
+                        type: $this.attr('method'),
+                        url: $this.attr('action'),
+                        data: frmValues
+                })
+                    .done(function (result) {
+                            $("#para").text("Serialized! Input String is " + frmValues);
+                    })
+                    .fail(function () {
+                            $("#para").text("An error occured");
+                    });
+                event.preventDefault();
+        });
+</script>
+
+
+<script type="text/javascript">
+        $(document).ready(function () {
+
+            $("#btnSubmit").click(function () {
+
+                var Errors = "";
+                if ($("#CompanyName").val() == "") {
+                    Errors = Errors + "Please Enter CompanyName \n";
+                }
+
+
+                if (Errors != "") {
+                    alert(Errors);
+                    return false
+                }
+                else
+                    return true;
+
+            });
+
+        });
+
+</script>
+
+<script type="text/javascript">
+
+    function fileCheck(e) {
+        debugger;
+        // alert("Imageeeeeeeeeeeeee");
+        //https://www.youtube.com/watch?v=btmJrgRldtk
+        // https://www.youtube.com/results?search_query=image+save+in+mvc+using+jquery+
+
+        var Files = e.files;
+        //if (!(Files[0].type.match("image.*") && Files[0].name.match(/\.(jpg|jpeg)$/i))) { 
+        if (!(Files[0].type.match("image.*"))) {          
+            alert("Please Select valid Image File .jpeg");
+            $("ImageBrowes").val('');
+            return;
+        }
+        else
+        {
+            if (Files && Files[0]) {
+                ReadImage(Files[0])
+            }
+            
+        }
+
+        
+
+    }
+
+    var ReadImage = function (file) {
+
+        var reader = new FileReader;
+        var image = new Image;
+
+        reader.readAsDataURL(file);
+
+        reader.onload = function (_file) {
+
+            image.src = _file.target.result;
+            image.onload = function () {
+                $("#targetImg").attr('src', _file.target.result);
+            }
+        }
+    }
+
+</script>
+
+
+@using (Html.BeginForm("Company", "Master", FormMethod.Post, new { enctype = "multipart/form-data", Id = "FormId" }))
+{
+
+    <div class="container">
+        <br />
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <b> @ViewBag.PageHedding </b>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <table class="table table-responsive">
+                                    <tr id="lblCityIdRow" style="display:none">
+                                        <td style="text-align:center">
+                                            Company Id
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(Model => Model.CompanyId, "", new { Id = "CompanyId", @readonly = "readonly" })
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:center">
+                                            Company Name
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(Model => Model.CompanyName, null, new { Id = "CompanyName", @class = "form-control" })
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td style="text-align:center">
+                                            Image
+                                        </td>
+                                        <td>
+                                            @*<input type="file" name="ImageData" id="ImageBrowes" onchange="fileCheck(this);" />*@
+
+                                            @*@Html.LabelFor(x => x.File)*@
+                                            @Html.TextBoxFor(x => x.File, new { type = "file", id = "ImageBrowes", onchange = "fileCheck(this);", accept = "image/*" })
+                                            @Html.ValidationMessageFor(x => x.File)
+
+                                            @*<input type="file" name="myImage" accept="image/x-png,image/gif,image/jpeg" />
+                    <input type="file" name="myImage" accept="image/*" />*@
+
+
+                                        </td>
+
+
+
+
+
+
+
+
+                                    </tr>
+
+                                    <tr>
+                                        <td style="text-align:center"></td>
+                                        <td>
+                                            <img id="targetImg" src="@Model.ImagePath" alt="Sample Image" width="300px" />
+
+
+
+                                            <div style="visibility:hidden">
+                                                <label id="lblImageUrl">@Model.ImagePath</label>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td style="text-align:center">
+                                            Remarks
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(Model => Model.Remarks, null, new { Id = "Remarks", @class = "form-control" })
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td style="text-align:center"></td>
+                                        <td>
+                                            @*<input id="btnSubmit" type="submit" value="Submit" class="btn-success form-control" />*@
+                                            <div style="float:right;">
+                                                <div style="float:left;">
+                                                    <input id="btnSubmit" type="submit" value="Submit" class="btn-success form-control" />
+                                                </div>
+                                                <div style="float:left;padding-left:10px;">
+                                                    <a href="/Master/Companys" class="btn btn-warning">Cancel</a>
+                                                </div>
+                                            </div>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="color:red;">@ViewBag.Errors</td>
+                                    </tr>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+}

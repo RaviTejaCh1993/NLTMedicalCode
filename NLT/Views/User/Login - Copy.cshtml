@@ -1,0 +1,85 @@
+﻿
+@model NLT.Models.LoginModel
+
+@{
+    Layout = null;
+}
+
+    <title>Login</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="~/Content/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/vendor/metisMenu/metisMenu.min.css" rel="stylesheet" />
+    <link href="~/Content/dist/css/sb-admin-2.css" rel="stylesheet" />
+    <link href="~/Content/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+
+    <!--Free Template UTL -->
+    <!--https://www.quackit.com/html/templates/business_website_templates.cfm -->
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        function validation()
+        {
+            var UID = $("#UserId").text();
+            var PWD = $("#Password").text();
+
+            if (UID == "" || PWD == "") {
+                alert("Please Enter Valid EmailId");
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+    });
+
+</script>
+
+
+  @using (Html.BeginForm("Login","User", FormMethod.Post))
+  {
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="login-panel panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Please Sign In</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form role="form">
+                            <fieldset>
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <div class="form-group">
+                                    @Html.EditorFor(model => model.UserId, new { htmlAttributes = new { @class = "form-control" } } )
+                                    @Html.ValidationMessageFor(model => model.UserId,"", new { @class = "text-danger" })
+                                   
+                                </div>
+                                <div class="form-group">                                  
+                                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                                   
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input name="remember" type="checkbox" value="Remember Me">Remember Me
+                                    </label>
+                                </div>
+                                <!-- Change this to a button or input when using this as a form -->
+                                @*<a href="index.html" class="btn btn-lg btn-success btn-block">Login</a>*@
+                                <input type="submit" value="Login" class="btn btn-lg btn-success btn-block" />
+
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+  }
+
+
+

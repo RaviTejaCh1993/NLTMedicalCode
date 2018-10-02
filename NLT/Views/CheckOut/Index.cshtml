@@ -1,0 +1,259 @@
+﻿
+@model NLT.Models.TestDisplayModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutMasterClient.cshtml";
+}
+
+<style type="text/css">
+    .div1-class1 {
+        background-color: white;
+        padding: 20px;
+    }
+
+    .div2-class1 {
+        background-color: #f9fcfc;
+        padding: 20px;
+    }
+
+    .body {
+        font-family: "AvenirNext", "Avenir Next", "Nunito","Open Sans", "OpenSans", "Arial";
+        font-weight: 400;
+        font-stretch: normal;
+        font-size: 14px;
+        overflow-y: auto;
+        overflow-x: hidden;
+       
+         background-color: #fafcfc;
+    }
+
+    .headding {
+        background-color: #fcc196;
+    }
+
+    .footlable {
+        background-color: white;
+         padding:15px 10px;
+    }
+    .padd-10 {
+        padding:10px;
+            /*background: #d4cacaab;*/
+    }
+    .title {
+        padding:15px 10px;
+    }
+</style>
+
+<script type="text/javascript">
+        var specialKeys = new Array();
+        specialKeys.push(8); //Backspace
+        function IsNumeric(e) {
+            var keyCode = e.which ? e.which : e.keyCode
+            var ret = ((keyCode >= 48 && keyCode <= 57) || specialKeys.indexOf(keyCode) != -1);
+             //document.getElementById("error").style.display = ret ? "none" : "inline";
+            return ret;
+        }
+
+
+        function validate()
+        {
+
+            var Erros = "";
+
+            if($('.txtYourName').val() == "")
+            {
+                Erros = Erros + " Your Name is required \n";
+            }
+
+            if ($('.PhoneNumber').val() == "") {
+                Erros = Erros + " Phone Number is required \n";
+            }
+            
+            if ($('.TestPersonName').val() == "") {
+                Erros = Erros + " Test Person Name is required \n";
+            }
+            if ($('.Age').val() == "") {
+                Erros = Erros + " Age is required \n";
+            }
+
+            if (Erros != "")
+            {
+                alert(Erros);
+
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+           
+        }
+
+</script>
+
+
+
+
+<div class="div1-class1">
+
+    <img src="data:image/webp;base64,UklGRsIAAABXRUJQVlA4TLUAAAAvF8AFEP8wruM6rorbRlJjC7dM3wvAGQJB4VBQCBIFwYNC8OBQMByKhYPBWCQOH4WAgWEkW2kexN1dXv918gM/HUT0fwJQtm2bQbEmyTdWKB1WCijalRw1gJw80tDIian45gDwKLBzLo3M2RRe64wKF9xKYRFShUaIFBIBd9BjpDPohLwETR9dUPFh18t/wP92vnrJTtdgPGaSpdCTbDwOkpOwk1w8avJNhYJk7oG8SyFnXQoAAA==" width="3%" data-pagespeed-url-hash="3726273458" onload="pagespeed.CriticalImages.checkImageForCriticality(this);">
+    Checkout
+</div>
+@*<hr />*@
+
+@using (Html.BeginForm("Index", "CheckOut", FormMethod.Post))
+{
+
+<div class="container body" style="padding:20px;">
+        <div class="col-sm-4">
+
+            <div class="row headding" style="display:none">  
+                @Html.TextBoxFor(Model => Model.LocationId, "", new { Id = "LocationId", @readonly = "readonly" })
+            </div>
+
+            <div class="row headding" style="display:none">
+                @Html.TextBoxFor(Model => Model.TestId, "", new { Id = "TestId", @readonly = "readonly" })
+            </div>
+
+            <div class="row headding">
+                <div class="col-sm-8">
+                    <div class="title">YOUR CENTER</div>
+                    </div>
+            </div>
+
+            <div class="row footlable">
+                <div class="col-sm-8">@Model.CompanyName</div>
+            </div>
+            <div class="row">
+                <div class="col-sm-8" style="height:20px;"></div>
+            </div>
+
+            <div class="row headding">
+                <div class="col-sm-8">
+                    <div class="title">YOUR Tests</div>
+                    </div>
+            </div>
+
+            <div>
+                <div class="row">
+                    <div class="col-sm-8 footlable">@Model.TestName</div>
+                    <div class="col-sm-4 footlable"> ₹ @Model.Amount</div>
+                </div>
+
+                <div class="row padd-10 headding">
+                    <div class="col-sm-8">Subtotal:</div>
+                    <div class="col-sm-4"> ₹ @Model.Amount</div>
+                </div>
+                <u></u>
+                <div class="row padd-10 headding">
+                    <div class="col-sm-8">  Order Total:</div>
+                    <div class="col-sm-4"> ₹ @Model.Amount</div>
+                </div>
+
+
+
+            </div>
+        </div>
+        <div class="col-sm-1"></div>
+        <div class="col-sm-7">
+
+            <div class="row">
+                <div class="headding">
+                    <div class="col-sm-12"><div class="title">YOUR INFORMATION</div></div>
+                </div>
+                <div class="footlable" style="height:100px;">
+                    <div class="col-sm-5" style="float:left;">
+                        <label> Name </label> @*<input type="text" class="form-control" placeholder="Your Name" />*@
+
+                        @Html.TextBoxFor(m => m.YourName, null, new { @class = "txtYourName form-control YourName", @placeholder = "Your Name" })
+
+                    </div>
+                    @*<div class="col-sm-3" style="float:left;">
+
+                        </div>*@
+
+                    <div class="col-sm-6" style="float:left;">
+                        Phone @*<input type="text" class="form-control" placeholder="Your Mobile Number" />*@
+                       @Html.TextBoxFor(m => m.PhoneNumber, null, new { @class = "txtPhoneNumber form-control PhoneNumber", @placeholder = "Your Mobile Number", @onkeypress = "return IsNumeric(event);", @ondrop = "return false;", @onpaste = "return false;", @MaxLength = "10" })
+                    </div>
+                    <div class="col-sm-1" style="float:left;">
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="headding">
+                    <div class="col-sm-12">
+                        <div class="title">Who are these tests for?</div>
+                        </div>
+                </div>
+                <div class="footlable" style="height:100px;">
+                    <div class="col-sm-5" style="float:left;">
+                        Name  @*<input type="text" class="form-control" placeholder="Person Name" />*@
+                        @Html.TextBoxFor(m => m.TestPersonName, null, new { @class = "txtTestPersonName form-control TestPersonName", @placeholder = "Person Name" })
+                    </div>
+
+
+                    <div class="col-sm-6" style="float:left;">
+                        Age @*<input type="text" class="form-control" placeholder="Person Age" />*@
+                        @*<input type="button" class="btn btn-success" value="Go" />*@
+                        @Html.TextBoxFor(m => m.Age, null, new { @class = "txtAge form-control Age", @placeholder = "Age" })
+
+                    </div>
+                    <div class="col-sm-1" style="float:left;">
+
+                    </div>
+
+                </div>
+                <div class="headding">
+                    <div class="col-sm-12"><div class="title">PICK YOUR APPOINTMENT</div>
+                    </div>
+                </div>
+                <div class="footlable" style="height:70px;">
+                    @*<div class="col-sm-5" style="float:left;">
+                        Appointment Date  <input type="text" class="form-control" placeholder="Pick Date" />
+
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.BirthDate, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.BirthDate, "", new { @class = "text-danger" })
+                        </div>
+
+                    </div>*@
+
+                @*<div class="form-group">
+                    @Html.LabelFor(model => model.BirthDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.BirthDate, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.BirthDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Appointmentdate, new { @class = "col-md-2 control-label" })
+                         
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.Appointmentdate, "{0:yyyy-MM-ddThh:mm:ss}", new { @class = "form-control", type = "datetime-local" })
+                            @*@Html.ValidationMessageFor(m => m.Appointmentdate, "", new { @class = "text-danger" })*@
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    <div>
+        <table width="100%">
+            <tr>
+                <td width="100%" align="right">
+                    <input onclick="return validate()" type="submit" value="Next" style="background-color:green;color:white;margin:20px;" class="btnSubmit  btn btn-success" />
+                </td>
+            </tr>
+        </table>
+
+    </div>
+    </div>
+   
+}

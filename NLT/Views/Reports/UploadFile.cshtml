@@ -1,0 +1,247 @@
+﻿
+@{
+    ViewBag.Title = "Upload";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model  NLT.Models.FileOrderModel
+
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+<script type="text/javascript">
+
+    //$('.btnDownload').click(function () {
+    //    debugger;
+    //    alert("Download........");
+    //});
+
+    $('.s-inte').click(function (e) {
+        e.preventDefault()
+    });
+
+    function myfunction(a) {
+        debugger;
+        //alert("My function........");
+
+        var myFilepath = document.getElementById('myFilepath');
+        window.open(a.name, 'SalesReport', "resizable=yes,scrollbars=yes,status=yes", 465, 255);
+
+        //var FileModel = {};
+        //FileModel.OrderId = $('.txtOrderId').val();
+        //FileModel.FilePath = a.name;
+
+        //var person = {};
+        //person.Name = $("#txtName").val();
+        //$.ajax({
+        //    type: "POST",
+        //    url: "/Test/ViewPdF",
+        //    data: '{FilePath: ' + JSON.stringify(a.name) + '}',
+        //    contentType: "application/json; charset=utf-8",
+        //    dataType: "json",
+        //    success: function (response) {
+        //        debugger;
+        //        alert("sssssssssssssssss");
+        //        //   $("#tblOrderData").append("<tr><td>ssssss</td><td>ffff</td></tr><tr><td>ttttttt</td><td>hhhhhhh</td></tr>");
+
+        //        //alert("Hello: " + response.Name + ".\nCurrent Date and Time: " + response.DateTime);
+        //    },
+        //    failure: function (response) {
+
+        //        alert("FFFFFFFFF");
+
+        //        // alert(response.responseText);
+        //    },
+        //    error: function (response) {
+
+        //        alert("EEEEEEE");
+        //        //alert(response.responseText);
+        //    }
+        //});
+
+
+    }
+
+
+    $(document).ready(function () {
+
+
+
+
+        $("#btnShow1").click(function () {
+
+            //  var Res = $('.txtOrderId').val();
+
+            var Error = "";
+            if ($('.txtOrderId').val() == "") {
+                Error = Error + " Please Enter OrderId";
+            }
+
+            if (Error != "") {
+                alert(Error);
+            }
+            else {
+                alert("Successs........");
+
+
+                //$.ajax({
+                //    type: "POST", 		//GET or POST or PUT or DELETE verb
+                //    url: "", 		// Location of the service
+                //    data: "", 		//Data sent to server
+                //    contentType: "",		// content type sent to server
+                //    dataType: "json", 	//Expected data format from server
+                //    processdata: true, 	//True or False
+                //    success: function (json) {//On Successful service call
+                //        var result = json.name;
+                //        $("#dvAjax").html(result);
+                //    },
+                //    error: ServiceFailed	// When Service call fails
+                //});
+
+                var OrderModel = {};
+                OrderModel.OrderId = $('.txtOrderId').val();
+                OrderModel.VendorId = 0;
+
+
+                ////var person = {};
+                ////person.Name = $("#txtName").val();
+                //$.ajax({
+                //    type: "POST",
+                //    url: "/Test/Getdata",
+                //    data: '{OrderModel: ' + JSON.stringify(OrderModel) + '}',
+                //    contentType: "application/json; charset=utf-8",
+                //    dataType: "json",
+                //    success: function (response) {
+                //        //alert("sssssssssssssssss");
+
+                //        $("#tblOrderData").append("<tr><td>ssssss</td><td>ffff</td></tr><tr><td>ttttttt</td><td>hhhhhhh</td></tr>");
+
+                //        //alert("Hello: " + response.Name + ".\nCurrent Date and Time: " + response.DateTime);
+                //    },
+                //    failure: function (response) {
+
+                //        alert("FFFFFFFFF");
+
+                //        // alert(response.responseText);
+                //    },
+                //    error: function (response) {
+
+                //        alert("EEEEEEE");
+                //        //alert(response.responseText);
+                //    }
+                //});
+
+
+
+            }
+
+
+        });
+
+    });
+
+    //https://www.aspsnippets.com/Articles/Pass-Send-Model-object-in-jQuery-ajax-POST-request-to-Controller-method-in-ASPNet-MVC.aspx
+
+</script>
+
+@using (Html.BeginForm("UploadFile", "Reports", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+    <a href="javascript:;" onclick="document.forms[0].submit();">View PDF</a>
+    <hr />
+        @Html.Raw(TempData["Embed"])
+
+    <br />
+    <br />
+    <input id="btnView" type="submit" name="btnView" value="View" />
+
+
+    <br />
+
+    <table border="1">
+        <tr>
+            <td>
+                OrderId
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.OrderId, null, new { @class = "txtOrderId" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input id="btnShow" type="submit" name="btnShow" value="Show" />
+            </td>
+            <td></td>
+        </tr>
+
+
+    </table>
+
+    <table id="tblOrderData" border="1"></table>
+    <br />
+
+    if (Model.divFileUpload)
+    {
+        <table id="tblFileUpload" border="1">
+            <tr>
+                <td>
+                    @Html.TextBox("file", "", new { type = "file" })
+                </td>
+                <td>
+                    <input type="submit" id="btnPost" value="Upload" name="btnPost" />
+                </td>
+            </tr>
+        </table>
+    }
+
+    if (Model.listFiles != null)
+    {
+        <table id="tblFiles" border="1">
+
+            <tr>
+                <td></td>
+                <td>
+                    OrderId
+                </td>
+                <td>
+                    File Path
+                </td>
+                <td>View</td>
+                <td></td>
+            </tr>
+            @{ var Id = 0;  }
+
+            @foreach (var a in Model.listFiles)
+            {
+                Id = Id + 1;
+
+                var did = "btnDownload_" + Id;
+                <tr>
+                    <td>
+                        <input id="txtOrderId_" type="text" value=@a.OrderId />
+                    </td>
+                    <td>
+                        @a.OrderId
+                    </td>
+                    <td>
+                        <a href=""> @a.FilePath </a>
+                    </td>
+                    <td>
+                        @*<a href="" name=@a.FilePath> View </a>*@
+                        <input type="button" id=@did name=@a.FilePath value="Download" class="btnDownload" onclick="myfunction(this)" />
+
+
+                    </td>
+                    <td>
+                        @*<a id=@did href="" name=@a.FilePath onclick="return false" class="class2 s-inte"> Download </a>*@
+                        @*<input type="button" id=@did name=@a.FilePath value="Download" class="btnDownload" onclick="myfunction(this)"/>*@
+
+                        <a href="@Url.Action("DownloadPdf", "Reports", new { FilePath = @a.FilePath })">Download Form</a>
+                    </td>
+                </tr>
+            }
+
+        </table>
+                    }
+
+                }

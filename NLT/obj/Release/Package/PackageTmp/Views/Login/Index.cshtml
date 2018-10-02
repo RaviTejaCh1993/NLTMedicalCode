@@ -1,0 +1,140 @@
+﻿
+@model NLT.Models.LoginModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutMasterClient.cshtml";
+}
+<script src="~/Scripts/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $('.btnPnoneNumber_').click(function () {
+
+            var Errors = "";
+
+            var PhoneNumber = $("#txtPhonenumber").val();
+
+            if (PhoneNumber == "" || PhoneNumber == null) {
+                Errors = Errors + " Please Enter Phone Number \n";
+            }
+
+            if (Errors == "") {
+                alert("sssssssssrrrrrrrrs");
+
+                var LoginModel = {}
+                LoginModel.PhoneNumber = PhoneNumber;
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Login/PostOTP",
+                    // data: { CompanyId: parseInt(companyId) },
+                    data: JSON.stringify(LoginModel),
+                    //data: { loginModel: JSON.stringify(LoginModel) },
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: successFunc,
+                    error: errorFunc
+                });
+
+                function successFunc(res, status) {
+
+                    if (res.StatusCode == 200) {
+                        alert("Otp Sent SucessFully ...............");
+
+                        $('.btnOTP').visibility = visible;
+
+                        // window.location.href = "/Master/TestPrices"; //data.redirecturl;
+
+                    }
+                    else if (res.StatusCode == 400) {
+
+                        alert("Otp Not Send ...........");
+                    }
+
+                }
+
+                function errorFunc() {
+                    alert('error');
+                }
+
+
+            }
+
+        });
+
+
+    });
+
+</script>
+
+
+@using (Html.BeginForm("Index", "Login", FormMethod.Post))
+{
+    <div class="form-horizontal">
+        <div align="center" style="padding-top:100px;">
+
+            <div style="display:none" >
+                @Html.TextBoxFor(Model => Model.TransType, null, new { Id = "txtTransType", @class = "form-control TransType" })
+            </div>
+
+            @*@if (Model.PhoneNumberdiv == true)
+            {*@
+                <div style="@(Model.PhoneNumberdiv ? "display:block" : "display:none")">
+                    <table border="0">
+                        <tr>
+                            <td>Phone Number </td>
+                            <td>
+                                @Html.TextBoxFor(Model => Model.PhoneNumber, null, new { Id = "txtPhonenumber", @class = "form-control Phonenumber" })
+                            </td>
+                            <td valign="middle">
+                                <input id="btnPnoneNumber_" type="Submit" value="Submit" name="btnPhoneNum" class="btn btn-primary btnPnoneNumber" valign="middle" />
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+                @*//}*@
+
+
+            @*@if (Model.OTPdiv == true)
+            {*@
+                <br />
+                @*<div style="@(Model.booleanVariable ? "display:block" : "display:none")">Some links</div>*@
+
+                <div id="divOtp" class="divOtp" style="@(Model.OTPdiv ? "display:block" : "display:none")">
+                    <table border="0">
+
+                        <tr>
+                            <td style="padding-left:30px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTP </td>
+                            <td>
+                                @Html.TextBoxFor(Model => Model.OTP, null, new { Id = "txtOTP", @class = "form-control OTP" })
+
+                            </td>
+                            <td>
+                                <input id="btnOTP_" type="Submit" value="Verify" name="btnOTP" class="btn btn-primary" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                @*}*@
+
+
+        </div>
+
+    </div>
+
+
+}
+@if (ViewBag.Message != null)
+{
+    <script type="text/javascript">
+            @*window.onload = function () {
+                alert("@ViewBag.Message");
+            };*@
+        alert("@ViewBag.Message");
+
+    </script>
+}

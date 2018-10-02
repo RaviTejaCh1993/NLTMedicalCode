@@ -1,0 +1,166 @@
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\ApplicationInsights.config
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\roslyn\csc.exe
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\roslyn\Microsoft.CodeAnalysis.dll
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\roslyn\Microsoft.CSharp.Core.targets
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\roslyn\Microsoft.VisualBasic.Core.targets
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\roslyn\System.Collections.Immutable.dll
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\roslyn\System.Reflection.Metadata.dll
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\roslyn\vbc.exe
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\roslyn\VBCSCompiler.exe
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\roslyn\VBCSCompiler.exe.config
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\NLT.dll.config
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\NLT.dll
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\NLT.pdb
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\Antlr3.Runtime.dll
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\EntityFramework.dll
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\EntityFramework.SqlServer.dll
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\Microsoft.AI.Agent.Intercept.dll
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\Microsoft.AI.DependencyCollector.dll
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\Microsoft.AI.PerfCounterCollector.dll
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\Microsoft.AI.ServerTelemetryChannel.dll
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\Microsoft.AI.Web.dll
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\Microsoft.AI.WindowsServer.dll
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\Microsoft.ApplicationInsights.dll
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\Microsoft.AspNet.Identity.Core.dll
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\Microsoft.AspNet.Identity.Owin.dll
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\Microsoft.Owin.dll
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\Microsoft.Owin.Host.SystemWeb.dll
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\Microsoft.Owin.Security.Cookies.dll
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\Microsoft.Owin.Security.dll
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\Microsoft.Owin.Security.Facebook.dll
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\Microsoft.Owin.Security.Google.dll
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\Microsoft.Owin.Security.OAuth.dll
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\Microsoft.Owin.Security.Twitter.dll
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\Microsoft.Web.Infrastructure.dll
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\Newtonsoft.Json.dll
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\Owin.dll
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\System.Web.Helpers.dll
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\System.Web.Mvc.dll
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\System.Web.Optimization.dll
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\System.Web.Razor.dll
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\System.Web.WebPages.Deployment.dll
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\System.Web.WebPages.dll
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\System.Web.WebPages.Razor.dll
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\WebGrease.dll
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\Microsoft.AI.DependencyCollector.xml
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\Microsoft.AI.ServerTelemetryChannel.xml
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\Microsoft.AI.Web.xml
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\Microsoft.AI.WindowsServer.xml
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\Microsoft.ApplicationInsights.xml
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\System.Web.Helpers.xml
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\System.Web.Mvc.xml
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\System.Web.Optimization.xml
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\System.Web.Razor.xml
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\System.Web.WebPages.xml
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\System.Web.WebPages.Deployment.xml
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\System.Web.WebPages.Razor.xml
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\Antlr3.Runtime.pdb
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\Newtonsoft.Json.xml
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\EntityFramework.xml
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\EntityFramework.SqlServer.xml
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\Microsoft.AspNet.Identity.Core.xml
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\Microsoft.AspNet.Identity.Owin.xml
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\Microsoft.Owin.xml
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\Microsoft.Owin.Host.SystemWeb.xml
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\Microsoft.Owin.Security.xml
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\Microsoft.Owin.Security.Facebook.xml
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\Microsoft.Owin.Security.Cookies.xml
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\Microsoft.Owin.Security.OAuth.xml
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\Microsoft.Owin.Security.Google.xml
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\Microsoft.Owin.Security.Twitter.xml
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\obj\Debug\NLT.dll
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\obj\Debug\NLT.pdb
+E:\A_Projects_2018\March_Working_Live_Projects\NLTNew\NLT\NLT\obj\Debug\NLT.csprojResolveAssemblyReference.cache
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\ApplicationInsights.config
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\roslyn\csc.exe
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\roslyn\Microsoft.CodeAnalysis.dll
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\roslyn\Microsoft.CSharp.Core.targets
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\roslyn\Microsoft.VisualBasic.Core.targets
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\roslyn\System.Collections.Immutable.dll
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\roslyn\System.Reflection.Metadata.dll
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\roslyn\vbc.exe
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\roslyn\VBCSCompiler.exe
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\roslyn\VBCSCompiler.exe.config
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\NLT.dll.config
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\NLT.dll
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\NLT.pdb
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\Antlr3.Runtime.dll
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\EntityFramework.dll
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\EntityFramework.SqlServer.dll
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\Microsoft.AI.Agent.Intercept.dll
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\Microsoft.AI.DependencyCollector.dll
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\Microsoft.AI.PerfCounterCollector.dll
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\Microsoft.AI.ServerTelemetryChannel.dll
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\Microsoft.AI.Web.dll
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\Microsoft.AI.WindowsServer.dll
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\Microsoft.ApplicationInsights.dll
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\Microsoft.AspNet.Identity.Core.dll
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\Microsoft.AspNet.Identity.Owin.dll
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\Microsoft.Owin.dll
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\Microsoft.Owin.Host.SystemWeb.dll
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\Microsoft.Owin.Security.Cookies.dll
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\Microsoft.Owin.Security.dll
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\Microsoft.Owin.Security.Facebook.dll
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\Microsoft.Owin.Security.Google.dll
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\Microsoft.Owin.Security.OAuth.dll
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\Microsoft.Owin.Security.Twitter.dll
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\Microsoft.Web.Infrastructure.dll
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\Newtonsoft.Json.dll
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\Owin.dll
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\System.Web.Helpers.dll
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\System.Web.Mvc.dll
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\System.Web.Optimization.dll
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\System.Web.Razor.dll
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\System.Web.WebPages.Deployment.dll
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\System.Web.WebPages.dll
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\System.Web.WebPages.Razor.dll
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\WebGrease.dll
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\Microsoft.AI.DependencyCollector.xml
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\Microsoft.AI.ServerTelemetryChannel.xml
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\Microsoft.AI.Web.xml
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\Microsoft.AI.WindowsServer.xml
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\Microsoft.ApplicationInsights.xml
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\System.Web.Helpers.xml
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\System.Web.Mvc.xml
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\System.Web.Optimization.xml
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\System.Web.Razor.xml
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\System.Web.WebPages.xml
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\System.Web.WebPages.Deployment.xml
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\System.Web.WebPages.Razor.xml
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\Antlr3.Runtime.pdb
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\Newtonsoft.Json.xml
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\EntityFramework.xml
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\EntityFramework.SqlServer.xml
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\Microsoft.AspNet.Identity.Core.xml
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\Microsoft.AspNet.Identity.Owin.xml
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\Microsoft.Owin.xml
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\Microsoft.Owin.Host.SystemWeb.xml
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\Microsoft.Owin.Security.xml
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\Microsoft.Owin.Security.Facebook.xml
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\Microsoft.Owin.Security.Cookies.xml
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\Microsoft.Owin.Security.OAuth.xml
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\Microsoft.Owin.Security.Google.xml
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\Microsoft.Owin.Security.Twitter.xml
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\obj\Debug\NLT.csprojResolveAssemblyReference.cache
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\obj\Debug\NLT.dll
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\obj\Debug\NLT.pdb
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\itextsharp.dll
+E:\My Project Files\Medical\Code\Phase-1\NLT\NLT\bin\itextsharp.xml

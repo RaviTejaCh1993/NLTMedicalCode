@@ -1,0 +1,74 @@
+﻿
+@{
+    ViewBag.Title = "Testpage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Testpage</h2>
+
+
+
+
+@model  NLT.Models.ReportsModel
+
+@{
+    ViewBag.Title = "Upload";
+}
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#btnShow").click(function () {
+
+          //  var Res = $('.txtOrderId').val();
+
+            var Error = "";
+            if($('.txtOrderId').val()=="")
+            {
+                Error = Error + " Please Enter OrderId";
+            }
+
+            if(Error !="")
+            {
+                alert(Error);
+            }
+            else
+            {
+                alert("Successs........");
+            }
+
+
+        });
+
+    });
+
+
+</script>
+
+@using (Html.BeginForm("Reports", "Testpage", FormMethod.Post))
+{
+
+    <br />
+
+    <table border="1">
+        <tr>
+            <td>
+                OrderId
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.OrderId, null, new { @class = "txtOrderId" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input id="btnShow" type="button" value="btnSave" />
+            </td>
+            <td></td>
+        </tr>
+
+
+    </table>
+
+}

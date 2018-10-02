@@ -1,0 +1,52 @@
+﻿
+
+
+@model NLT.Models.OrderModel
+
+
+@{
+    ViewBag.Title = "Confirm";
+    Layout = "~/Views/Shared/_LayoutMasterClient.cshtml";
+}
+
+<h2>Order Confirmation................</h2>
+<hr />
+@using (Html.BeginForm("Confirm", "Payment"))
+{
+
+    <table width="100%" height="350px;">
+        <tr>
+            <td>
+                <table width="50%" align="center" style="background-color:#f3edb8;padding-top:200px;">
+                   
+                    <tr>
+                        <td>
+                            OrderId : @Model.OrderId
+                        </td>
+                        <td>
+                            Order Confirmed ......
+                        </td>
+                        <td></td>
+                        <td colspan="2" align="right" style="padding-right:30px;">
+                            <a href="/User/Test" class="btn btn-warning">Exit</a>
+                        </td>
+                    </tr>
+
+                </table>
+            </td>
+        </tr>
+    </table>
+
+   
+    <br />
+
+    @*<table width="50%" align="center">
+        <tr>
+            <td>
+                <a href="/User/SearchTest" class="btn btn-warning">Exit</a>
+            </td>
+        </tr>
+
+    </table>*@
+
+}

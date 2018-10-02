@@ -1,0 +1,82 @@
+﻿
+@model IEnumerable<NLT.Models.OrderModel>
+
+@{
+    ViewBag.Title = "Orders";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .Grid-Headder-bg-color {
+        background-color: #3b74fa;
+        color: white;
+        font-weight: bold;
+    }
+</style>
+
+@using (Html.BeginForm("OrderList", "Order", FormMethod.Post))
+{
+    <div class="container">
+        <br />
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <b> Orders </b>
+                    </div>
+                    <div class="panel-body" style="overflow:scroll">
+                        <div class="row">
+                            <div class="col-lg-10">
+                                
+
+                                    <table class="table table-responsive" style="height:300px;">
+                                        @*<caption style="text-align:right;font-weight:bold;"><a href="/Master/Please">Create</a></caption>*@
+                                        <tr class="Grid-Headder-bg-color">
+                                            <td style="text-align:center">
+                                                Order Id
+                                            </td>
+                                            <td>
+                                                Ordered Person
+                                            </td>
+                                            <td>
+                                                Phone Number
+                                            </td>
+                                            <td>
+                                                Appointment Date
+                                            </td>
+                                            <td></td>
+                                        </tr>
+
+                                        @foreach (var m in Model)
+                                        {
+                                            <tr style="background-color:#f6fcfc">
+                                                <td style="text-align:center">
+                                                    @m.OrderId
+                                                </td>
+                                                <td>
+                                                    @m.orderedPerson
+                                                </td>
+                                                <td>
+                                                    @m.PhoneNumber
+                                                </td>
+                                                <td>
+                                                    @m.Appointmentdate
+                                                </td>
+                                                <td>
+                                                    <a href="/Order/GOrder/@m.OrderId" class="btn btn-warning">View</a>
+                                                </td>
+                                            </tr>
+                                        }
+
+                                    </table>
+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+}
+

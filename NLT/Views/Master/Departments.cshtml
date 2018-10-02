@@ -1,0 +1,72 @@
+﻿
+
+@model IEnumerable<NLT.Models.DepartmentModel>
+
+@{
+    ViewBag.Title = "Departments";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .Grid-Headder-bg-color {
+        background-color: #3b74fa;
+        color: white;
+        font-weight: bold;
+    }
+</style>
+
+
+@using (Html.BeginForm("Department", "Master", FormMethod.Post))
+{
+    <div class="container">
+        <br />
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <b> Departments </b>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <table class="table table-responsive">
+                                    <caption style="text-align:right;font-weight:bold;"><a href="/Master/Department">Create</a></caption>
+                                    <tr class="Grid-Headder-bg-color">
+                                        <td style="text-align:center">
+                                            Department Id
+                                        </td>
+                                        <td>
+                                            Department Name
+                                        </td>
+                                        <td></td>
+                                    </tr>
+
+                                    @foreach (var m in Model)
+                                     {
+                                        <tr style="background-color:#f6fcfc">
+                                            <td style="text-align:center">
+                                                @m.DepartmentId
+                                            </td>
+                                            <td>
+                                                @m.DepartmentName
+                                            </td>
+                                            <td>
+                                                <a href="/Master/Department/@m.DepartmentId">Edit</a>
+                                            </td>
+                                        </tr>
+                                    }
+
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+}
+
